@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clavier, Premiere, Resonanz</title>
+<meta name="description" content="Drei Website-Entwürfe für eine Sopranistin, zum Vergleichen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Layout: a single reading column; three concept entries, each a live miniature beside its description */
+:root {
+  --bg: #f6f6f3;
+  --fg: #121214;
+  --muted: #5e5e63;
+  --rule: rgba(18, 18, 20, .14);
+  --card: #ffffff;
+  --felt: #7a1d29;
+  --f-display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
+  --f-body: "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0e10; --fg: #f1f1ee; --muted: #a2a2a8; --rule: rgba(241, 241, 238, .14); --card: #17171a; --felt: #c45a69;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0e10; --fg: #f1f1ee; --muted: #a2a2a8; --rule: rgba(241, 241, 238, .14); --card: #17171a; --felt: #c45a69;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 300 1.0625rem/1.65 var(--f-body); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.page { max-width: 1080px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 28px 80px; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: clamp(48px, 8vw, 88px); }
+.label { font: 500 .7rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.lang { display: flex; }
+.lang button { background: none; border: 1px solid var(--rule); padding: .45em .8em; cursor: pointer; font: 500 .72rem/1 var(--f-body); letter-spacing: .1em; }
+.lang button + button { border-left: 0; }
+.lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(3rem, 8vw, 5.6rem); line-height: .98; letter-spacing: -.02em; font-style: italic; }
+.intro { display: grid; gap: 20px; margin-bottom: clamp(48px, 7vw, 80px); }
+.intro p { margin: 0; max-width: 60ch; font-size: 1.15rem; }
+.intro .note { font-size: .95rem; color: var(--muted); }
+
+.concepts { display: grid; gap: 0; border-top: 1px solid var(--fg); }
+.concept {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px clamp(28px, 5vw, 64px);
+  padding-block: clamp(32px, 5vw, 52px); border-bottom: 1px solid var(--rule); align-items: start;
+}
+.concept .pv { position: relative; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; border: 1px solid var(--rule); text-decoration: none; display: block; }
+.c-body { display: grid; gap: 14px; min-width: 0; }
+.c-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.c-letter { font: 500 .72rem/1 var(--f-body); letter-spacing: .18em; color: var(--muted); }
+.c-head h2 { font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1; }
+.mood { margin: 0; font: italic 400 1.25rem/1.4 var(--f-display); }
+.c-body dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 18px; margin: 4px 0 6px; }
+.c-body dt { font: 500 .68rem/2 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.c-body dd { margin: 0; }
+.open {
+  justify-self: start; display: inline-flex; gap: .7em; align-items: center; text-decoration: none;
+  padding: .9em 1.4em; border: 1px solid var(--fg); background: var(--fg); color: var(--bg);
+  font: 500 .74rem/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; transition: background .2s, color .2s;
+}
+.open:hover { background: transparent; color: var(--fg); }
+@media (max-width: 760px) { .concept { grid-template-columns: 1fr; } .c-body dl { grid-template-columns: 1fr; gap: 0 0; } .c-body dd { margin-bottom: 8px; } }
+
+/* Miniatures: each shows the concept's moving idea in black and white */
+.pv-clavier { background: #0b0b0c; display: grid; align-content: end; padding: 0 10% 12%; }
+.pv-clavier .name { color: #fbfbf8; font: 400 clamp(1.4rem, 3.4vw, 2.2rem)/1 "Libre Caslon Display", var(--f-display); margin-bottom: 16%; }
+.mini-kb { position: relative; display: flex; height: 44%; border-top: 3px solid #7a1d29; }
+.mini-kb i { flex: 1; background: #fbfbf8; border-left: 1px solid #c9c8c2; border-radius: 0 0 4px 4px; box-shadow: inset 0 -6px 0 #e3e2dc; animation: press 3.2s infinite; animation-delay: calc(var(--k) * .16s); }
+.mini-kb i:first-child { border-left: 0; }
+.mini-kb b { position: absolute; top: 0; width: 8%; height: 58%; background: #111; border-radius: 0 0 3px 3px; transform: translateX(-50%); }
+@keyframes press { 0%, 20%, 100% { box-shadow: inset 0 -6px 0 #e3e2dc; background: #fbfbf8; } 8% { box-shadow: inset 0 -2px 0 #d6d5cf; background: #ecebe6; } }
+
+.pv-premiere { background: radial-gradient(60% 30% at 50% 100%, rgba(243, 239, 230, .14), transparent 70%), #060606; }
+.pv-premiere .arch { position: absolute; left: 50%; top: 16%; width: 30%; aspect-ratio: 3 / 4; transform: translateX(-50%); border-radius: 999px 999px 0 0; background: radial-gradient(30% 20% at 50% 28%, rgba(255, 250, 240, .5), transparent 75%), linear-gradient(180deg, #2c2c2d, #111); }
+.pv-premiere .bill { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: #f3efe6; font: 400 clamp(.9rem, 2.2vw, 1.3rem)/1 "Italiana", var(--f-display); letter-spacing: .3em; text-transform: uppercase; }
+.pv-premiere .cur { position: absolute; top: 0; bottom: 0; width: 51%; background: repeating-linear-gradient(90deg, #09090a 0, #1e1d1f 2.4%, #3b3a3d 3.8%, #1e1d1f 5.2%, #09090a 7.4%); animation: curtain 7s cubic-bezier(.66, 0, .22, 1) infinite; }
+.pv-premiere .cur.l { left: 0; transform-origin: left; }
+.pv-premiere .cur.r { right: 0; transform-origin: right; }
+.pv-premiere .val { position: absolute; left: 0; right: 0; top: 0; height: 10%; background: repeating-linear-gradient(90deg, #09090a 0 4px, #1e1d1f 4px 12px, #3b3a3d 12px 15px, #1e1d1f 15px 22px); }
+@keyframes curtain { 0%, 8% { transform: scaleX(1); } 38%, 78% { transform: scaleX(.13); } 100% { transform: scaleX(1); } }
+
+.pv-resonanz { background: #fafaf8; }
+.pv-resonanz canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pv-resonanz .nm { position: absolute; left: 8%; right: 8%; bottom: 10%; color: #0c0c0c; font: italic 400 clamp(1.8rem, 5vw, 3rem)/.85 var(--f-display); letter-spacing: -.03em; display: grid; }
+.pv-resonanz .nm span:last-child { justify-self: end; font-style: normal; }
+
+.shared, .steps, .tips { display: grid; gap: 16px; padding-top: clamp(40px, 6vw, 64px); }
+.shared h2, .steps h2, .tips h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); font-style: italic; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 0 48px; }
+ul.clean { list-style: none; margin: 0; padding: 0; }
+ul.clean li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+ol.steps-list { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 0; }
+ol.steps-list li { counter-increment: s; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); padding: 12px 0; border-bottom: 1px solid var(--rule); }
+ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(--f-display); color: var(--felt); }
+.foot { margin-top: 56px; color: var(--muted); font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .pv-premiere .cur { transform: scaleX(.13); }
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Libre+Caslon+Display&display=swap">
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <p class="label" data-i18n="kicker">Website für eine Sopranistin · Entwurfsrunde 1</p>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <header class="intro">
+    <h1 data-i18n="h1">Drei Entwürfe</h1>
+    <p data-i18n="intro1"></p>
+    <p class="note" data-i18n="intro2"></p>
+  </header>
+
+  <section class="concepts" aria-label="Entwürfe">
+    <article class="concept">
+      <a class="pv pv-clavier" href="concepts/clavier/index.html" aria-hidden="true" tabindex="-1">
+        <div class="name">Maria Muster</div>
+        <div class="mini-kb">
+          <i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i>
+          <b style="left:14.28%"></b><b style="left:28.57%"></b><b style="left:57.14%"></b><b style="left:71.43%"></b><b style="left:85.71%"></b>
+        </div>
+      </a>
+      <div class="c-body">
+        <div class="c-head"><span class="c-letter" data-i18n="aLetter">Entwurf A</span><h2>Clavier</h2></div>
+        <p class="mood" data-i18n="aMood"></p>
+        <dl>
+          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="aMoves"></dd>
+          <dt data-i18n="strength">Stärke</dt><dd data-i18n="aPlus"></dd>
+          <dt data-i18n="watch">Achtung</dt><dd data-i18n="aMinus"></dd>
+        </dl>
+        <a class="open" href="concepts/clavier/index.html"><span data-i18n="openA">Clavier öffnen</span> →</a>
+      </div>
+    </article>
+
+    <article class="concept">
+      <a class="pv pv-premiere" href="concepts/premiere/index.html" aria-hidden="true" tabindex="-1">
+        <div class="arch"></div>
+        <div class="bill">Maria Muster</div>
+        <div class="cur l"></div><div class="cur r"></div><div class="val"></div>
+      </a>
+      <div class="c-body">
+        <div class="c-head"><span class="c-letter" data-i18n="bLetter">Entwurf B</span><h2>Premiere</h2></div>
+        <p class="mood" data-i18n="bMood"></p>
+        <dl>
+          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="bMoves"></dd>
+          <dt data-i18n="strength">Stärke</dt><dd data-i18n="bPlus"></dd>
+          <dt data-i18n="watch">Achtung</dt><dd data-i18n="bMinus"></dd>
+        </dl>
+        <a class="open" href="concepts/premiere/index.html"><span data-i18n="openB">Premiere öffnen</span> →</a>
+      </div>
+    </article>
+
+    <article class="concept">
+      <a class="pv pv-resonanz" href="concepts/resonanz/index.html" aria-hidden="true" tabindex="-1">
+        <canvas id="pvStrings"></canvas>
+        <div class="nm"><span>Maria</span><span>Muster</span></div>
+      </a>
+      <div class="c-body">
+        <div class="c-head"><span class="c-letter" data-i18n="cLetter">Entwurf C</span><h2>Resonanz</h2></div>
+        <p class="mood" data-i18n="cMood"></p>
+        <dl>
+          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="cMoves"></dd>
+          <dt data-i18n="strength">Stärke</dt><dd data-i18n="cPlus"></dd>
+          <dt data-i18n="watch">Achtung</dt><dd data-i18n="cMinus"></dd>
+        </dl>
+        <a class="open" href="concepts/resonanz/index.html"><span data-i18n="openC">Resonanz öffnen</span> →</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="tips">
+    <h2 data-i18n="tipsTitle">So vergleichen Sie</h2>
+    <ol class="steps-list">
+      <li data-i18n="tip1"></li>
+      <li data-i18n="tip2"></li>
+      <li data-i18n="tip3"></li>
+      <li data-i18n="tip4"></li>
+    </ol>
+  </section>
+
+  <div class="grid2">
+    <section class="shared">
+      <h2 data-i18n="sharedTitle">In allen drei Entwürfen</h2>
+      <ul class="clean">
+        <li data-i18n="s1"></li><li data-i18n="s2"></li><li data-i18n="s3"></li><li data-i18n="s4"></li><li data-i18n="s5"></li><li data-i18n="s6"></li>
+      </ul>
+    </section>
+    <section class="steps">
+      <h2 data-i18n="nextTitle">Danach</h2>
+      <ol class="steps-list">
+        <li data-i18n="n1"></li><li data-i18n="n2"></li><li data-i18n="n3"></li><li data-i18n="n4"></li>
+      </ol>
+    </section>
+  </div>
+
+  <p class="foot" data-i18n="foot"></p>
+</div>
+
+<script src="concepts/shared/i18n.js"></script>
+<script>
+(function () {
+  window.I18N.init({
+    de: {
+      kicker: "Website für eine Sopranistin · Entwurfsrunde 1",
+      h1: "Drei Entwürfe",
+      intro1: "Ein digitaler Auftritt, den sie an Agenturen, Opernhäuser und Veranstalter schicken kann. Alle drei Entwürfe zeigen denselben Inhalt, nur anders inszeniert: schwarz und weiß wie ein Flügel, mit Bewegung.",
+      intro2: "Name, Texte, Termine und Zitate sind Platzhalter. Statt ihrer Aufnahmen erklingt eine synthetische Demo-Melodie.",
+      moves: "Was sich bewegt", strength: "Stärke", watch: "Achtung",
+      aLetter: "Entwurf A", openA: "Clavier öffnen",
+      aMood: "Elegant und verspielt: Die Klaviatur ist die Navigation.",
+      aMoves: "Tasten senken sich beim Zeigen und können erklingen; ein Notensystem zeichnet sich zwischen den Kapiteln, Noten wandern darüber; die Taste des aktuellen Kapitels bleibt gedrückt; die Tastenleiste im Player läuft mit der Musik.",
+      aPlus: "Sofort einprägsam, ein eigener Wiedererkennungswert.",
+      aMinus: "Kann verspielt wirken, wenn man noch mehr Klavier-Motive ergänzt.",
+      bLetter: "Entwurf B", openB: "Premiere öffnen",
+      bMood: "Theatralisch: Vorhang auf, die Seite liest sich wie ein Programmheft.",
+      bMoves: "Der Vorhang öffnet sich beim Laden; ein Verfolger-Spot folgt der Maus; Partien laufen als Laufband durch; die Akte werden beim Scrollen beleuchtet; Pressezitate bekommen nacheinander das Licht; am Ende schließt sich der Vorhang.",
+      bPlus: "Die stärkste emotionale Wirkung, gut für Galas und Opernhäuser.",
+      bMinus: "Viel Schwarz; lebt von einem sehr guten Porträtfoto.",
+      cLetter: "Entwurf C", openC: "Resonanz öffnen",
+      cMood: "Modern und redaktionell: ihre Stimme wird sichtbar.",
+      cMoves: "Feine Saiten weichen dem Mauszeiger aus und schwingen live mit der Aufnahme; der Name verschiebt sich beim Scrollen; das Repertoire läuft als Band seitwärts; Porträt und Zitate gleiten ins Bild.",
+      cPlus: "Am eigenständigsten und zeitgemäßesten, wirkt wie ein Klassik-Label.",
+      cMinus: "Braucht gute Aufnahmen, denn die Hörproben stehen im Mittelpunkt.",
+      tipsTitle: "So vergleichen Sie",
+      tip1: "Öffnen Sie die Entwürfe auch auf dem Handy, denn dort sehen Veranstalter sie oft zuerst.",
+      tip2: "Clavier: oben rechts „♪ Klang“ einschalten und über die Tasten fahren. Premiere: Maus über die Bühne bewegen, „Vorhang noch einmal“ antippen. Resonanz: „Stimme hören“ drücken.",
+      tip3: "Oben rechts lässt sich jede Seite zwischen Deutsch und Englisch umschalten.",
+      tip4: "Mischungen sind möglich, zum Beispiel der Vorhang aus B mit den Saiten aus C.",
+      sharedTitle: "In allen drei Entwürfen",
+      s1: "Hörproben und Videos, die erst nach einem Klick von YouTube oder Vimeo laden",
+      s2: "Repertoire nach Oper, Konzert & Oratorium und Lied",
+      s3: "Kommende Termine und Spielorte",
+      s4: "Pressestimmen",
+      s5: "Vita mit Pressemappe zum Herunterladen",
+      s6: "Kontakt, Impressum und Datenschutz",
+      nextTitle: "Danach",
+      n1: "Einen Entwurf auswählen oder eine Mischung festlegen.",
+      n2: "Material sammeln: Fotos, Aufnahmen (MP3), Video-Links, Vita, Zitate, Termine.",
+      n3: "Die echte Seite mit ihren Inhalten bauen, auf Deutsch und Englisch.",
+      n4: "Auf GitHub Pages veröffentlichen und die eigene Domain verbinden.",
+      foot: "Prototypen, Stand Entwurfsrunde 1."
+    },
+    en: {
+      kicker: "Website for a soprano · Concept round 1",
+      h1: "Three concepts",
+      intro1: "A digital calling card she can send to agencies, opera houses and promoters. All three concepts carry the same content, staged differently: black and white like a grand piano, with motion.",
+      intro2: "Name, texts, dates and quotes are placeholders. A synthesized demo melody stands in for her recordings.",
+      moves: "What moves", strength: "Strength", watch: "Watch out",
+      aLetter: "Concept A", openA: "Open Clavier",
+      aMood: "Elegant and playful: the keyboard is the navigation.",
+      aMoves: "Keys go down on hover and can sound; a music staff draws itself between chapters with notes drifting along it; the key of the current chapter stays held; the player's key strip follows the music.",
+      aPlus: "Instantly memorable, with a recognisable signature.",
+      aMinus: "Can tip into gimmicky if more piano motifs are added.",
+      bLetter: "Concept B", openB: "Open Premiere",
+      bMood: "Theatrical: the curtain rises and the page reads like a programme booklet.",
+      bMoves: "The curtain opens on load; a follow-spot tracks the mouse; roles run past as a marquee; acts light up as you scroll; press quotes take the light in turn; the curtain closes at the end.",
+      bPlus: "The strongest emotional pull, good for galas and opera houses.",
+      bMinus: "A lot of black; depends on one very good portrait photo.",
+      cLetter: "Concept C", openC: "Open Resonanz",
+      cMood: "Modern and editorial: her voice made visible.",
+      cMoves: "Fine strings part around the cursor and vibrate live with the recording; the name shifts as you scroll; the repertoire runs sideways as a band; portrait and quotes slide into view.",
+      cPlus: "The most distinctive and contemporary, with a classical-label feel.",
+      cMinus: "Needs good recordings, since listening is the centrepiece.",
+      tipsTitle: "How to compare",
+      tip1: "Open the concepts on a phone too, since that is often where promoters see them first.",
+      tip2: "Clavier: turn on “♪ Sound” at the top right and run across the keys. Premiere: move the mouse over the stage, tap “Curtain again”. Resonanz: press “Hear the voice”.",
+      tip3: "Each page switches between German and English at the top right.",
+      tip4: "Mixing is possible, for example B's curtain with C's strings.",
+      sharedTitle: "In all three concepts",
+      s1: "Recordings and videos that load from YouTube or Vimeo only after a click",
+      s2: "Repertoire by opera, concert & oratorio, and song",
+      s3: "Upcoming dates and venues",
+      s4: "Press quotes",
+      s5: "Biography with a downloadable press kit",
+      s6: "Contact, legal notice and privacy policy",
+      nextTitle: "Next",
+      n1: "Pick a concept or agree on a mix.",
+      n2: "Gather material: photos, recordings (MP3), video links, CV, quotes, dates.",
+      n3: "Build the real site with her content, in German and English.",
+      n4: "Publish on GitHub Pages and connect the custom domain.",
+      foot: "Prototypes, concept round 1."
+    }
+  });
+
+  // Concept C miniature: a few hairline strings with a travelling ripple
+  var c = document.getElementById("pvStrings"), g = c.getContext("2d");
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size() {
+    var d = Math.min(2, window.devicePixelRatio || 1);
+    c.width = c.clientWidth * d; c.height = c.clientHeight * d; g.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function draw(t) {
+    var w = c.clientWidth, h = c.clientHeight;
+    g.clearRect(0, 0, w, h);
+    g.strokeStyle = "rgba(12,12,12,.28)";
+    g.lineWidth = 1;
+    for (var i = 0; i < 16; i++) {
+      var y0 = h * .1 + h * .5 * i / 15, mid = Math.sin(Math.PI * i / 15);
+      g.beginPath();
+      for (var x = 0; x <= w; x += 4) {
+        var u = x / w, env = Math.exp(-Math.pow((u - .5 - .25 * Math.sin(t / 2400)) / .14, 2));
+        var y = y0 + env * mid * 9 * Math.sin(x * .07 - t * .008 + i);
+        if (x) g.lineTo(x, y); else g.moveTo(x, y);
+      }
+      g.stroke();
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+  size();
+  window.addEventListener("resize", size);
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

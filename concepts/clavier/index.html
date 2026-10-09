@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clavier · Maria Muster</title>
+<meta name="description" content="Entwurf A: Die Klaviatur ist die Navigation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Libre+Caslon+Display&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Music&text=%F0%9D%84%9E&display=swap">
+<style>
+/* Layout: bands alternate lacquer black and key white like a keyboard; one octave of keys is the navigation, a staff divides the chapters */
+:root {
+  --lacquer: #0b0b0c;
+  --lacquer-2: #19191b;
+  --ivory: #fbfbf8;
+  --ink: #121212;
+  --ink-soft: #5d5c58;
+  --pale: #a4a39e;
+  --felt: #7a1d29;
+
+  --f-display: "Libre Caslon Display", "Bodoni 72", Didot, Georgia, serif;
+  --f-body: "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
+  --f-music: "Noto Music", "Bravura", serif;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --measure: 62ch;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--lacquer);
+  color: var(--ivory);
+  font: 300 1.0625rem/1.65 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.wrap { max-width: 1160px; margin-inline: auto; padding-inline: var(--gutter); }
+.band { background: var(--bg); color: var(--fg); padding-block: clamp(56px, 9vw, 120px); position: relative; }
+.band.dark  { --bg: var(--lacquer); --fg: var(--ivory); --muted: var(--pale); --rule: rgba(251, 251, 248, .2); }
+.band.light { --bg: var(--ivory); --fg: var(--ink); --muted: var(--ink-soft); --rule: rgba(18, 18, 18, .18); }
+
+.label {
+  font: 500 .72rem/1.3 var(--f-body);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(2.6rem, 6.4vw, 5rem); line-height: 1; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; }
+.lede { max-width: var(--measure); color: var(--muted); margin: 0; font-size: 1.125rem; }
+.proto { max-width: var(--measure); font-size: .85rem; color: var(--muted); margin: 0; }
+.proto b {
+  font-weight: 500; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase;
+  border: 1px solid var(--rule); padding: .15em .5em; margin-right: .5em; white-space: nowrap;
+}
+
+/* Top bar inverts itself over black and white bands */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 30;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--gutter) 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: #fff; mix-blend-mode: difference;
+  font: 400 .78rem/1 var(--f-body); letter-spacing: .08em;
+}
+.topbar a { text-decoration: none; }
+.topbar .concept { text-transform: uppercase; letter-spacing: .2em; font-size: .68rem; opacity: .8; }
+.tools { display: flex; gap: 6px; align-items: center; }
+.chip {
+  background: none; border: 1px solid currentColor; border-radius: 999px;
+  padding: .45em .9em; cursor: pointer; letter-spacing: .08em; line-height: 1;
+}
+.chip[aria-pressed="true"] { background: #fff; color: #000; }
+.lang { display: flex; }
+.lang .chip { border-radius: 0; padding-inline: .7em; }
+.lang .chip:first-child { border-radius: 999px 0 0 999px; }
+.lang .chip:last-child { border-radius: 0 999px 999px 0; border-left: 0; }
+@media (max-width: 560px) { .topbar .concept { display: none; } }
+
+/* Hero */
+.hero { padding-block: calc(env(safe-area-inset-top, 0px) + 112px) 0; overflow: hidden; }
+.hero-copy { display: grid; gap: 22px; padding-bottom: clamp(40px, 7vw, 80px); }
+.name {
+  font-size: clamp(3.3rem, 11.5vw, 9.6rem);
+  line-height: .92; letter-spacing: -.015em; font-weight: 400;
+}
+.name .w { display: inline-block; white-space: nowrap; }
+.name .ch { display: inline-block; animation: strike .9s cubic-bezier(.2, .7, .1, 1) both; animation-delay: calc(var(--i) * 55ms + 150ms); }
+@keyframes strike { from { opacity: 0; transform: translateY(.28em); } to { opacity: 1; transform: none; } }
+.claim { font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 34ch; margin: 0; color: var(--ivory); font-weight: 300; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.btn {
+  display: inline-flex; align-items: center; gap: .6em; text-decoration: none; background: transparent; cursor: pointer;
+  padding: .95em 1.5em; border: 1px solid currentColor;
+  font: 500 .78rem/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase;
+  transition: background .2s, color .2s;
+}
+.btn.solid { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.solid:hover { background: transparent; color: var(--fg); }
+.btn.line:hover { background: var(--fg); color: var(--bg); }
+
+/* The keyboard */
+.kb-wrap { padding-bottom: clamp(28px, 4vw, 44px); }
+.kb {
+  position: relative; display: flex; height: clamp(196px, 22vw, 236px);
+  user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  background: var(--lacquer-2); padding-top: 6px;
+  border-radius: 4px 4px 0 0;
+}
+/* the red felt strip under the fallboard */
+.kb::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--felt); z-index: 3; }
+.wk {
+  flex: 1 1 0; min-width: 0; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px;
+  padding: 0 2px 16px;
+  color: var(--ink); text-decoration: none;
+  background: linear-gradient(180deg, #dcdbd5 0, #fbfbf8 6%, #fbfbf8 84%, #efeee9 100%);
+  border-left: 1px solid #c9c8c2;
+  border-radius: 0 0 7px 7px;
+  box-shadow: inset 0 -10px 0 #e6e5df, 0 2px 0 #000;
+  transition: box-shadow .12s ease, background .12s ease, transform .12s ease;
+}
+.wk:first-child { border-left: 0; }
+.wk:hover, .wk.down, .wk.held {
+  background: linear-gradient(180deg, #b9b8b2 0, #f1f0eb 9%, #f6f5f1 86%, #e7e6e0 100%);
+  box-shadow: inset 0 -4px 0 #dcdbd5, 0 1px 0 #000;
+  transform: translateY(2px);
+}
+.wk.held .wk-label { color: var(--felt); }
+.wk-label {
+  font: 500 .7rem/1.4 var(--f-body); letter-spacing: .14em; text-transform: uppercase;
+  max-width: 100%; white-space: nowrap;
+}
+.wk-note { font: 400 1.05rem/1 var(--f-display); color: var(--ink-soft); }
+.bk {
+  position: absolute; top: 6px; z-index: 2;
+  width: calc(100% / 7 * .58); height: 58%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #000 0, #1c1c1e 72%, #2d2d30 93%, #141416 100%);
+  border-radius: 0 0 5px 5px;
+  box-shadow: inset 0 -8px 0 #313135, inset 1px 0 0 #3b3b3f, inset -1px 0 0 #050505, 0 4px 5px rgba(0, 0, 0, .5);
+  cursor: pointer; transition: box-shadow .1s, height .1s;
+}
+.bk:hover, .bk.down { box-shadow: inset 0 -3px 0 #2b2b2f, inset 1px 0 0 #3b3b3f, 0 2px 2px rgba(0, 0, 0, .5); height: calc(58% - 2px); }
+.kb-hint { margin: 16px 0 0; font-size: .85rem; color: var(--pale); }
+@media (max-width: 720px) {
+  .wk { padding-bottom: 12px; gap: 8px; }
+  .wk-label { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .62rem; letter-spacing: .1em; }
+  .big .bk { height: 50%; }
+}
+
+/* Dock: a compact octave pinned to the bottom once the hero keyboard has scrolled away */
+.dock {
+  position: fixed; left: 50%; z-index: 25;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+  width: min(580px, calc(100% - 2 * var(--gutter)));
+  transform: translate(-50%, 140%);
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .08);
+  border-radius: 6px 6px 8px 8px; overflow: hidden;
+}
+.dock.show { transform: translate(-50%, 0); }
+.dock .kb { height: 54px; padding-top: 4px; }
+.dock .kb::before { height: 3px; }
+.dock .wk { padding-bottom: 10px; box-shadow: inset 0 -5px 0 #e6e5df; border-radius: 0 0 5px 5px; }
+.dock .wk:hover, .dock .wk.held { box-shadow: inset 0 -2px 0 #dcdbd5; transform: translateY(1px); }
+.dock .wk-label { font-size: .58rem; letter-spacing: .06em; writing-mode: horizontal-tb; transform: none; }
+.dock .wk-note { display: none; }
+.dock .bk { top: 4px; height: 46%; box-shadow: inset 0 -4px 0 #313135, 0 2px 3px rgba(0, 0, 0, .5); }
+
+/* Staff divider */
+.staff { position: relative; height: 72px; margin: 0 var(--gutter) clamp(36px, 5vw, 60px); color: var(--fg); }
+.staff::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 16px; height: 41px;
+  background: repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 10px);
+  transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.6, 0, .2, 1);
+}
+.staff.in::before { transform: scaleX(1); }
+.staff .clef {
+  position: absolute; left: 0; top: -6px; font: 400 64px/1 var(--f-music); color: var(--fg);
+  opacity: 0; transition: opacity .8s .4s;
+}
+.staff.in .clef { opacity: .85; }
+.staff i {
+  position: absolute; left: 0; top: var(--y); width: 12px; height: 9px; margin-top: -4.5px;
+  border-radius: 50%; background: var(--fg); transform: rotate(-22deg);
+  opacity: 0; animation: drift var(--d) linear infinite; animation-delay: var(--delay);
+  animation-play-state: paused;
+}
+.staff.in i { opacity: .9; }
+.staff.live i { animation-play-state: running; }
+@keyframes drift {
+  0% { left: 9%; opacity: 0; }
+  8% { opacity: .9; }
+  88% { opacity: .9; }
+  100% { left: 99%; opacity: 0; }
+}
+
+.sec-head { display: grid; gap: 16px; margin-bottom: clamp(32px, 5vw, 56px); }
+.key-tag {
+  display: inline-grid; place-items: end center; width: 22px; height: 34px; padding-bottom: 3px;
+  border: 1px solid var(--rule); border-top: 3px solid var(--felt); border-radius: 0 0 4px 4px;
+  font: 400 .95rem/1 var(--f-display); color: var(--fg);
+}
+
+/* Listen */
+.tracks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.track {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px 22px; align-items: center;
+  padding: 20px 4px; border-bottom: 1px solid var(--rule); transition: background .3s;
+}
+.track.playing { background: rgba(18, 18, 18, .04); }
+.play {
+  width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--fg); background: transparent;
+  display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s;
+}
+.play:hover, .track.playing .play { background: var(--fg); color: var(--bg); }
+.play .ico { width: 14px; height: 16px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); margin-left: 3px; }
+.track.playing .play .ico { clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0); margin-left: 0; }
+.t-text { min-width: 0; display: grid; gap: 2px; }
+.t-composer { margin: 0; font: 500 .7rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.t-title { margin: 0; font: 400 clamp(1.35rem, 2.6vw, 1.9rem)/1.15 var(--f-display); }
+.t-work { margin: 0; color: var(--muted); font-size: .95rem; }
+.t-time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+
+.strip {
+  position: relative; display: flex; height: 64px; margin: 32px 0 18px;
+  background: var(--lacquer); padding-top: 4px; border-radius: 3px 3px 0 0;
+}
+.strip::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--felt); }
+.strip .s-w {
+  flex: 1 1 0; background: linear-gradient(180deg, #e3e2dc, #fbfbf8 12%); border-left: 1px solid #cfcec8;
+  border-radius: 0 0 3px 3px; box-shadow: inset 0 -5px 0 #e6e5df; transition: background .25s, box-shadow .1s;
+}
+.strip .s-w:first-child { border-left: 0; }
+.strip .s-b {
+  position: absolute; top: 4px; width: calc(100% / 21 * .58); height: 58%; transform: translateX(-50%);
+  background: linear-gradient(180deg, #000, #222 85%, #333); border-radius: 0 0 3px 3px; z-index: 2;
+}
+.strip .lit.s-w { background: linear-gradient(180deg, #c9c8c2, #e9e8e2 14%); }
+.strip .lit.s-b { background: linear-gradient(180deg, #000, #3d3d40 85%, #555); }
+.strip .now.s-w { background: var(--felt); box-shadow: inset 0 -2px 0 #5b141e; }
+.strip .now.s-b { background: var(--felt); }
+
+/* Watch */
+.videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 28px; margin-bottom: 28px; }
+.video { margin: 0; display: grid; gap: 14px; }
+.v-poster {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%; width: 100%; border: 1px solid var(--rule); cursor: pointer;
+  background:
+    radial-gradient(60% 80% at 30% 40%, rgba(255, 255, 255, .14), transparent 70%),
+    linear-gradient(135deg, #2a2a2c, #0e0e0f);
+  display: grid; place-items: center; overflow: hidden; padding: 0;
+}
+.v-poster::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 30%;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .07) 0 calc(100% / 14 - 1px), rgba(0, 0, 0, .5) calc(100% / 14 - 1px) calc(100% / 14));
+}
+.v-play {
+  width: 72px; height: 72px; border-radius: 50%; border: 1px solid var(--ivory); display: grid; place-items: center;
+  transition: transform .3s, background .3s; z-index: 1;
+}
+.v-play::before { content: ""; width: 16px; height: 20px; background: var(--ivory); clip-path: polygon(0 0, 100% 50%, 0 100%); margin-left: 4px; }
+.v-poster:hover .v-play { transform: scale(1.08); background: rgba(255, 255, 255, .1); }
+.v-dur { position: absolute; right: 12px; top: 10px; font-size: .8rem; letter-spacing: .08em; font-variant-numeric: tabular-nums; z-index: 1; }
+.v-msg {
+  position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 20px; text-align: center;
+  background: rgba(11, 11, 12, .92); font-size: .95rem;
+}
+.v-title { margin: 0; font: 400 1.5rem/1.2 var(--f-display); }
+.v-meta { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* Repertoire */
+.rep-group {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px clamp(24px, 5vw, 72px);
+  padding-block: 36px; border-top: 1px solid var(--rule); align-items: start;
+}
+.rep-head { display: grid; gap: 18px; min-width: 0; }
+.score { width: 100%; height: auto; display: block; overflow: visible; }
+.score line { stroke: var(--rule); stroke-width: 1; }
+.score .bar { stroke: var(--fg); opacity: .45; }
+.score .clef { font: 400 56px/1 var(--f-music); fill: var(--fg); }
+.score .n { cursor: pointer; }
+.score .n ellipse { fill: var(--fg); transition: transform .25s; transform-box: fill-box; transform-origin: center; transform: rotate(-20deg); }
+.score .n .stem { stroke: var(--fg); stroke-width: 1.3; }
+.score .n .hit { fill: transparent; }
+.score .n.on ellipse { fill: var(--felt); transform: rotate(-20deg) scale(1.45); }
+.score .n.on .stem { stroke: var(--felt); }
+.rep-list { list-style: none; margin: 0; padding: 0; columns: 2 220px; column-gap: 32px; }
+.rep-list li { break-inside: avoid; padding: 10px 0 10px 14px; border-left: 2px solid transparent; transition: border-color .2s, transform .2s; cursor: default; }
+.rep-list li.on { border-left-color: var(--felt); transform: translateX(4px); }
+.r-main { display: block; font: 400 1.3rem/1.2 var(--f-display); }
+.r-sub { display: block; color: var(--muted); font-size: .92rem; }
+
+/* Dates */
+.dates { list-style: none; margin: 0 0 40px; padding: 0; border-top: 1px solid var(--rule); }
+.date {
+  display: grid; grid-template-columns: 7.5rem minmax(0, 1.3fr) minmax(0, 1fr); gap: 8px 28px; align-items: baseline;
+  padding: 22px 0; border-bottom: 1px solid var(--rule);
+}
+.d-when { display: grid; font-variant-numeric: tabular-nums; }
+.d-day { font: 400 2.6rem/1 var(--f-display); }
+.d-mon { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.d-work { margin: 0; font: 400 1.45rem/1.2 var(--f-display); }
+.d-comp, .d-venue { margin: 0; color: var(--muted); }
+.past { display: grid; gap: 10px; max-width: 80ch; }
+.past #past { margin: 0; font: 400 1.25rem/1.6 var(--f-display); }
+@media (max-width: 720px) {
+  .date { grid-template-columns: 5.2rem minmax(0, 1fr); }
+  .d-venue { grid-column: 2; }
+  .rep-group { grid-template-columns: 1fr; }
+}
+
+/* Press */
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 40px; margin-bottom: 36px; }
+.quote { margin: 0; display: grid; gap: 18px; align-content: start; }
+.quote .mark { font: 400 5rem/.6 var(--f-display); height: .45em; }
+.quote blockquote { margin: 0; font: 400 1.5rem/1.35 var(--f-display); }
+.quote figcaption { font: 500 .72rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+/* Vita */
+.vita { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+.portrait {
+  position: relative; aspect-ratio: 4 / 5; max-width: 100%;
+  background:
+    radial-gradient(42% 30% at 50% 34%, rgba(255, 255, 255, .22), transparent 70%),
+    radial-gradient(70% 50% at 50% 100%, rgba(255, 255, 255, .12), transparent 70%),
+    linear-gradient(180deg, #232325, #0f0f10);
+  border: 1px solid var(--rule); display: grid; place-items: end start; padding: 18px;
+}
+.vita-text { display: grid; gap: 28px; min-width: 0; }
+.vita-text p { margin: 0; max-width: var(--measure); }
+.vita-text .bio-lead { font: 400 1.6rem/1.35 var(--f-display); }
+.hl { margin: 0; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 12px 20px; padding-top: 24px; border-top: 1px solid var(--rule); }
+.hl dt { font-variant-numeric: tabular-nums; color: var(--muted); }
+.hl dd { margin: 0; }
+.kit { display: grid; gap: 12px; }
+.kit ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+.kit button {
+  width: 100%; text-align: left; background: none; border: 1px solid var(--rule); padding: 14px 16px; cursor: pointer;
+  display: flex; justify-content: space-between; gap: 12px; transition: border-color .2s, background .2s;
+}
+.kit button:hover { border-color: var(--fg); background: rgba(255, 255, 255, .04); }
+.kit-msg { min-height: 1.5em; margin: 0; font-size: .9rem; color: var(--muted); }
+@media (max-width: 820px) { .vita { grid-template-columns: 1fr; } .portrait { max-width: 420px; } }
+
+/* Contact */
+.contact { display: grid; gap: 28px; }
+.contact .big-mail { font: 400 clamp(1.7rem, 5.4vw, 3.6rem)/1.1 var(--f-display); overflow-wrap: anywhere; user-select: all; }
+.contact-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.contact dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 24px; margin: 0; }
+.contact dt { font: 500 .72rem/1.9 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.contact dd { margin: 0; }
+
+footer.band { padding-block: 48px calc(48px + 80px); }
+.foot { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: baseline; justify-content: space-between; }
+.foot nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.foot a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.dacapo { font: 400 1.4rem/1 var(--f-display); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .staff::before { transform: none; }
+  .staff .clef { opacity: .85; }
+  .staff i { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../../index.html" data-i18n="back">← Alle Entwürfe</a>
+  <span class="concept" data-i18n="conceptName">Entwurf A · Clavier</span>
+  <div class="tools">
+    <button class="chip" id="sound" type="button" aria-pressed="false" data-i18n-aria="soundAria"><span id="soundLabel">♪ Klang aus</span></button>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button class="chip" type="button" data-lang="de">DE</button>
+      <button class="chip" type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero band dark" id="top">
+  <div class="wrap hero-copy">
+    <p class="label"><span data-site="voice"></span> · <span data-site="genres"></span></p>
+    <h1 class="name" id="name"></h1>
+    <p class="claim" data-site="claim"></p>
+    <div class="ctas">
+      <a class="btn solid" href="#kontakt" data-i18n="ctaBook">Booking anfragen</a>
+      <a class="btn line" href="#hoeren" data-i18n="ctaListen">Hörproben</a>
+    </div>
+  </div>
+  <div class="wrap kb-wrap" id="kbWrap">
+    <nav class="kb big" id="kbBig" data-i18n-aria="kbAria"></nav>
+    <p class="kb-hint" data-i18n="kbHint"></p>
+  </div>
+</header>
+
+<nav class="dock" id="dock" inert data-i18n-aria="kbAria"><div class="kb" id="kbDock"></div></nav>
+
+<main>
+  <section class="band light" id="hoeren" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="0">C</span>
+        <h2 data-i18n="listenTitle">Hörproben</h2>
+        <p class="lede" data-i18n="listenLede"></p>
+      </header>
+      <ol class="tracks" id="tracks"></ol>
+      <div class="strip" id="strip" aria-hidden="true"></div>
+      <p class="proto" data-i18n-html="protoAudio"></p>
+    </div>
+  </section>
+
+  <section class="band dark" id="sehen" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="1">D</span>
+        <h2 data-i18n="watchTitle">Mitschnitte</h2>
+        <p class="lede" data-i18n="watchLede"></p>
+      </header>
+      <div class="videos" id="videos"></div>
+      <p class="proto" data-i18n-html="protoVideo"></p>
+    </div>
+  </section>
+
+  <section class="band light" id="repertoire" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="2">E</span>
+        <h2 data-i18n="repTitle">Repertoire</h2>
+        <p class="lede" data-i18n="repLede"></p>
+      </header>
+      <div id="rep"></div>
+      <p class="proto" data-i18n-html="protoRep"></p>
+    </div>
+  </section>
+
+  <section class="band dark" id="termine" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="3">F</span>
+        <h2 data-i18n="datesTitle">Termine</h2>
+      </header>
+      <ol class="dates" id="dates"></ol>
+      <div class="past">
+        <p class="label" data-i18n="pastLabel"></p>
+        <p id="past"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band light" id="presse" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="4">G</span>
+        <h2 data-i18n="pressTitle">Presse</h2>
+      </header>
+      <div class="quotes" id="quotes"></div>
+      <p class="proto" data-i18n-html="protoPress"></p>
+    </div>
+  </section>
+
+  <section class="band dark" id="vita" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="key-tag" data-note="5">A</span>
+        <h2 data-i18n="vitaTitle">Vita</h2>
+      </header>
+      <div class="vita">
+        <div class="portrait"><span class="label" data-i18n="portrait">Porträt</span></div>
+        <div class="vita-text">
+          <p class="bio-lead" id="bio0"></p>
+          <p id="bio1"></p>
+          <dl class="hl" id="hl"></dl>
+          <div class="kit">
+            <h3 data-i18n="kitTitle">Pressemappe</h3>
+            <ul id="kit"></ul>
+            <p class="kit-msg" id="kitMsg" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band light" id="kontakt" data-sec>
+    <div class="staff" aria-hidden="true"></div>
+    <div class="wrap contact">
+      <header class="sec-head">
+        <span class="key-tag" data-note="6">H</span>
+        <h2 data-i18n="contactTitle">Booking</h2>
+        <p class="lede" data-site="bookingFor"></p>
+      </header>
+      <span class="big-mail" id="mail"></span>
+      <div class="contact-row">
+        <a class="btn solid" id="mailto" href="#" data-i18n="write">E-Mail schreiben</a>
+        <button class="btn line" id="copy" type="button" data-i18n="copy">E-Mail kopieren</button>
+      </div>
+      <dl>
+        <dt data-i18n="phoneLabel">Telefon</dt><dd id="phone"></dd>
+        <dt data-i18n="agencyLabel">Agentur</dt><dd data-site="agency"></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="band dark">
+  <div class="wrap foot">
+    <span id="copyright"></span>
+    <nav>
+      <a href="#" data-i18n="imprint">Impressum</a>
+      <a href="#" data-i18n="privacy">Datenschutz</a>
+    </nav>
+    <a class="dacapo" href="#top" data-i18n="dacapo">Da capo ↑</a>
+  </div>
+  <div class="wrap" style="margin-top:20px"><p class="proto" data-i18n-html="protoLegal"></p></div>
+</footer>
+
+<script src="../shared/content.js"></script>
+<script src="../shared/i18n.js"></script>
+<script src="../shared/demo-audio.js"></script>
+<script>
+(function () {
+  var S = window.SITE, I = window.I18N, A = window.DemoAudio;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var DICT = {
+    de: {
+      back: "← Alle Entwürfe", conceptName: "Entwurf A · Clavier",
+      soundOff: "♪ Klang aus", soundOn: "♪ Klang an", soundAria: "Tastenklang ein- oder ausschalten",
+      ctaBook: "Booking anfragen", ctaListen: "Hörproben",
+      kbAria: "Kapitel", kbHint: "Jede Taste öffnet ein Kapitel. Mit „♪ Klang“ oben rechts erklingt sie auch.",
+      navListen: "Hören", navWatch: "Sehen", navRep: "Repertoire", navRepS: "Werke", navDates: "Termine",
+      navPress: "Presse", navVita: "Vita", navContact: "Kontakt",
+      listenTitle: "Hörproben", listenLede: "Drei Aufnahmen aus Oper, Lied und Oratorium.",
+      play: "Abspielen", pause: "Anhalten",
+      protoAudio: "<b>Prototyp</b>Statt ihrer Aufnahmen erklingt eine synthetische Demo-Melodie. Die Tastenleiste läuft mit der Wiedergabe mit.",
+      watchTitle: "Mitschnitte", watchLede: "Ausschnitte von der Bühne und aus dem Konzertsaal.",
+      videoMsg: "Hier startet das Video, geladen erst nach diesem Klick.",
+      protoVideo: "<b>Prototyp</b>YouTube- oder Vimeo-Videos werden erst nach einem Klick geladen. Vorher fließen keine Daten an Dritte.",
+      repTitle: "Repertoire", repLede: "Partien und Werke, die sie gesungen hat und kurzfristig anbieten kann.",
+      repOpera: "Oper", repConcert: "Konzert & Oratorium", repLied: "Lied",
+      protoRep: "<b>Prototyp</b>Beispiel-Repertoire. Noten und Liste reagieren aufeinander; mit Klang erklingt jede Note.",
+      datesTitle: "Termine", pastLabel: "Zuletzt zu Gast u. a.",
+      pressTitle: "Presse", protoPress: "<b>Prototyp</b>Zitate und Quellen sind Platzhalter.",
+      vitaTitle: "Vita", portrait: "Porträt", kitTitle: "Pressemappe",
+      kitMsg: "Im fertigen Auftritt startet hier der Download.",
+      contactTitle: "Booking", write: "E-Mail schreiben", copy: "E-Mail kopieren", copied: "Kopiert",
+      phoneLabel: "Telefon", agencyLabel: "Agentur",
+      imprint: "Impressum", privacy: "Datenschutz", dacapo: "Da capo ↑",
+      protoLegal: "<b>Prototyp</b>Impressum und Datenschutzerklärung sind für den fertigen Auftritt Pflicht."
+    },
+    en: {
+      back: "← All concepts", conceptName: "Concept A · Clavier",
+      soundOff: "♪ Sound off", soundOn: "♪ Sound on", soundAria: "Turn key sounds on or off",
+      ctaBook: "Booking enquiry", ctaListen: "Listen",
+      kbAria: "Chapters", kbHint: "Each key opens a chapter. Turn on “♪ Sound” at the top right to hear it, too.",
+      navListen: "Listen", navWatch: "Watch", navRep: "Repertoire", navRepS: "Works", navDates: "Dates",
+      navPress: "Press", navVita: "About", navContact: "Contact",
+      listenTitle: "Listen", listenLede: "Three recordings from opera, song and oratorio.",
+      play: "Play", pause: "Pause",
+      protoAudio: "<b>Prototype</b>A synthesized demo melody stands in for her recordings. The key strip follows the playback.",
+      watchTitle: "Watch", watchLede: "Excerpts from the stage and the concert hall.",
+      videoMsg: "The video starts here, loaded only after this click.",
+      protoVideo: "<b>Prototype</b>YouTube or Vimeo videos load only after a click. No data goes to third parties before that.",
+      repTitle: "Repertoire", repLede: "Roles and works she has performed and can offer at short notice.",
+      repOpera: "Opera", repConcert: "Concert & oratorio", repLied: "Song",
+      protoRep: "<b>Prototype</b>Sample repertoire. Notes and list respond to each other; with sound on, each note plays.",
+      datesTitle: "Dates", pastLabel: "Recent venues include",
+      pressTitle: "Press", protoPress: "<b>Prototype</b>Quotes and sources are placeholders.",
+      vitaTitle: "About", portrait: "Portrait", kitTitle: "Press kit",
+      kitMsg: "On the finished site, the download starts here.",
+      contactTitle: "Booking", write: "Write an email", copy: "Copy email", copied: "Copied",
+      phoneLabel: "Phone", agencyLabel: "Agency",
+      imprint: "Legal notice", privacy: "Privacy", dacapo: "Da capo ↑",
+      protoLegal: "<b>Prototype</b>A legal notice (Impressum) and privacy policy are mandatory for the finished site in Germany."
+    }
+  };
+
+  // One octave = the chapters. German note names call B "H".
+  var SECTIONS = [
+    { id: "hoeren", label: "navListen", midi: 60, note: "C" },
+    { id: "sehen", label: "navWatch", midi: 62, note: "D" },
+    { id: "repertoire", label: "navRep", short: "navRepS", midi: 64, note: "E" },
+    { id: "termine", label: "navDates", midi: 65, note: "F" },
+    { id: "presse", label: "navPress", midi: 67, note: "G" },
+    { id: "vita", label: "navVita", midi: 69, note: "A" },
+    { id: "kontakt", label: "navContact", midi: 71, note: { de: "H", en: "B" } }
+  ];
+  var BLACK = [{ after: 1, midi: 61 }, { after: 2, midi: 63 }, { after: 4, midi: 66 }, { after: 5, midi: 68 }, { after: 6, midi: 70 }];
+
+  var soundOn = false;
+  function tone(midi, vel) { if (soundOn) A.piano(midi, vel); }
+
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* ---------- keyboards ---------- */
+  function buildKeyboard(root, compact) {
+    root.innerHTML = "";
+    SECTIONS.forEach(function (s) {
+      var a = el("a", "wk");
+      a.href = "#" + s.id;
+      a.dataset.midi = s.midi;
+      a.dataset.sec = s.id;
+      a.innerHTML = '<span class="wk-label"></span><span class="wk-note"></span>';
+      root.appendChild(a);
+    });
+    BLACK.forEach(function (b) {
+      var k = el("span", "bk");
+      k.style.left = "calc(100% / 7 * " + b.after + ")";
+      k.dataset.midi = b.midi;
+      k.setAttribute("aria-hidden", "true");
+      root.appendChild(k);
+    });
+    root.dataset.compact = compact ? "1" : "";
+    labelKeyboard(root);
+  }
+  function labelKeyboard(root) {
+    var compact = root.dataset.compact === "1";
+    root.querySelectorAll(".wk").forEach(function (a, i) {
+      var s = SECTIONS[i];
+      a.querySelector(".wk-label").textContent = I.t(compact && s.short ? s.short : s.label);
+      a.querySelector(".wk-note").textContent = I.L(s.note);
+    });
+  }
+  function wireKeyboard(root) {
+    root.addEventListener("pointerdown", function (e) {
+      var k = e.target.closest(".wk, .bk");
+      if (!k) return;
+      k.classList.add("down");
+      tone(+k.dataset.midi, .6);
+    });
+    ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) {
+      root.addEventListener(ev, function () { root.querySelectorAll(".down").forEach(function (k) { k.classList.remove("down"); }); });
+    });
+    root.addEventListener("pointerover", function (e) {
+      if (e.pointerType !== "mouse") return;
+      var k = e.target.closest(".wk, .bk");
+      if (k && !k.contains(e.relatedTarget)) tone(+k.dataset.midi, .35);
+    });
+  }
+  var kbBig = document.getElementById("kbBig"), kbDock = document.getElementById("kbDock");
+  buildKeyboard(kbBig, false);
+  buildKeyboard(kbDock, true);
+  wireKeyboard(kbBig);
+  wireKeyboard(kbDock);
+
+  // A short visual glissando when the page opens
+  if (!reduce) {
+    var keys = kbBig.querySelectorAll(".wk");
+    keys.forEach(function (k, i) {
+      setTimeout(function () { k.classList.add("down"); }, 700 + i * 75);
+      setTimeout(function () { k.classList.remove("down"); }, 700 + i * 75 + 160);
+    });
+  }
+
+  // Sound toggle
+  var soundBtn = document.getElementById("sound"), soundLabel = document.getElementById("soundLabel");
+  function paintSound() {
+    soundBtn.setAttribute("aria-pressed", String(soundOn));
+    soundLabel.textContent = I.t(soundOn ? "soundOn" : "soundOff");
+  }
+  soundBtn.addEventListener("click", function () {
+    soundOn = !soundOn;
+    paintSound();
+    if (soundOn) { A.piano(60, .5); setTimeout(function () { A.piano(64, .45); }, 110); setTimeout(function () { A.piano(67, .45); }, 220); }
+  });
+
+  // Dock appears once the hero keyboard is gone
+  var dock = document.getElementById("dock");
+  new IntersectionObserver(function (entries) {
+    var e = entries[0];
+    var show = !e.isIntersecting && e.boundingClientRect.top < 0;
+    dock.classList.toggle("show", show);
+    if (show) dock.removeAttribute("inert"); else dock.setAttribute("inert", "");
+  }).observe(document.getElementById("kbWrap"));
+
+  // The key of the current chapter stays held down
+  var secObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      document.querySelectorAll(".wk").forEach(function (k) {
+        var on = k.dataset.sec === e.target.id;
+        k.classList.toggle("held", on);
+        if (on) k.setAttribute("aria-current", "true"); else k.removeAttribute("aria-current");
+      });
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  document.querySelectorAll("[data-sec]").forEach(function (s) { secObs.observe(s); });
+
+  /* ---------- staff dividers ---------- */
+  var NOTE_Y = [56, 51, 46, 41, 36, 31, 26, 21];
+  document.querySelectorAll(".staff").forEach(function (st, si) {
+    st.innerHTML = '<span class="clef">𝄞</span>';
+    for (var j = 0; j < 4; j++) {
+      var n = el("i");
+      n.style.setProperty("--y", NOTE_Y[(si * 3 + j * 2) % NOTE_Y.length] + "px");
+      n.style.setProperty("--d", (22 + j * 5) + "s");
+      n.style.setProperty("--delay", (-j * 6 - si * 2) + "s");
+      st.appendChild(n);
+    }
+  });
+  var staffObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add("in");
+      e.target.classList.toggle("live", e.isIntersecting);
+    });
+  }, { threshold: .1 });
+  document.querySelectorAll(".staff").forEach(function (s) { staffObs.observe(s); });
+
+  /* ---------- name ---------- */
+  function renderName() {
+    var h = document.getElementById("name"), i = 0;
+    h.innerHTML = [S.first, S.last].map(function (w) {
+      return '<span class="w">' + w.split("").map(function (c) {
+        return '<span class="ch" style="--i:' + (i++) + '">' + esc(c) + "</span>";
+      }).join("") + "</span>";
+    }).join(" ");
+    h.setAttribute("aria-label", S.first + " " + S.last);
+  }
+  renderName();
+
+  /* ---------- listen ---------- */
+  var tracksEl = document.getElementById("tracks");
+  function renderTracks() {
+    tracksEl.innerHTML = "";
+    S.tracks.forEach(function (t, i) {
+      var li = el("li", "track");
+      li.dataset.i = i;
+      li.innerHTML =
+        '<button class="play" type="button"><span class="ico"></span></button>' +
+        '<div class="t-text"><p class="t-composer">' + esc(t.composer) + '</p><p class="t-title">' + esc(I.L(t.title)) +
+        '</p><p class="t-work">' + esc(I.L(t.work)) + '</p></div>' +
+        '<span class="t-time">' + A.formatTime(A.durationOf(t.demo)) + "</span>";
+      li.querySelector(".play").addEventListener("click", function () { A.toggle(t.demo); });
+      tracksEl.appendChild(li);
+    });
+    paintTracks();
+  }
+  function paintTracks() {
+    tracksEl.querySelectorAll(".track").forEach(function (li) {
+      var t = S.tracks[+li.dataset.i], on = A.playing === t.demo;
+      li.classList.toggle("playing", on);
+      li.querySelector(".play").setAttribute("aria-label", I.t(on ? "pause" : "play") + ": " + t.composer + " " + I.L(t.title));
+      if (!on) li.querySelector(".t-time").textContent = A.formatTime(A.durationOf(t.demo));
+    });
+  }
+
+  // Three octaves; keys darken as the recording progresses
+  var strip = document.getElementById("strip"), stripKeys = [];
+  (function buildStrip() {
+    var whites = [];
+    for (var w = 0; w < 21; w++) { var k = el("span", "s-w"); strip.appendChild(k); whites.push(k); }
+    var pitchOrder = [];
+    for (var o = 0; o < 3; o++) {
+      [0, 1, 2, 3, 4, 5, 6].forEach(function (d) {
+        pitchOrder.push(whites[o * 7 + d]);
+        if ([0, 1, 3, 4, 5].indexOf(d) > -1) {
+          var b = el("span", "s-b");
+          b.style.left = "calc(100% / 21 * " + (o * 7 + d + 1) + ")";
+          strip.appendChild(b);
+          pitchOrder.push(b);
+        }
+      });
+    }
+    stripKeys = pitchOrder;
+  })();
+  var lastIdx = -2;
+  function paintStrip(p) {
+    var idx = p > 0 ? Math.min(stripKeys.length - 1, Math.floor(p * stripKeys.length)) : -1;
+    if (idx === lastIdx) return;
+    lastIdx = idx;
+    stripKeys.forEach(function (k, i) {
+      k.classList.toggle("lit", i < idx);
+      k.classList.toggle("now", i === idx);
+    });
+  }
+  var raf = 0;
+  function loop() {
+    paintStrip(A.progress());
+    var li = tracksEl.querySelector(".track.playing");
+    if (li) li.querySelector(".t-time").textContent = A.formatTime(A.elapsed()) + " / " + A.formatTime(A.durationOf(S.tracks[+li.dataset.i].demo));
+    raf = A.playing > -1 ? requestAnimationFrame(loop) : 0;
+  }
+  A.onChange(function (idx) {
+    paintTracks();
+    if (idx > -1 && !raf) raf = requestAnimationFrame(loop);
+    if (idx === -1) paintStrip(0);
+  });
+
+  /* ---------- watch ---------- */
+  function renderVideos() {
+    var box = document.getElementById("videos");
+    box.innerHTML = "";
+    S.videos.forEach(function (v) {
+      var f = el("figure", "video");
+      f.innerHTML =
+        '<button class="v-poster" type="button"><span class="v-play"></span><span class="v-dur">' + esc(v.duration) + '</span></button>' +
+        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + "</p></figcaption>";
+      var poster = f.querySelector(".v-poster");
+      poster.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));
+      poster.addEventListener("click", function () {
+        var m = poster.querySelector(".v-msg");
+        if (m) { m.remove(); return; }
+        poster.appendChild(el("span", "v-msg", esc(I.t("videoMsg"))));
+      });
+      box.appendChild(f);
+    });
+  }
+
+  /* ---------- repertoire ---------- */
+  var STEP_MIDI = [64, 65, 67, 69, 71, 72, 74, 76, 77]; // staff positions E4..F5
+  var MELODY = [2, 4, 6, 5, 3, 7, 8, 6, 4, 5];
+  function scoreSVG(n, seed) {
+    var W = 84 + n * 54, svg = '<svg class="score" viewBox="0 0 ' + W + ' 84" aria-hidden="true">';
+    for (var l = 0; l < 5; l++) svg += '<line x1="0" x2="' + W + '" y1="' + (22 + l * 10) + '" y2="' + (22 + l * 10) + '"/>';
+    svg += '<text class="clef" x="2" y="68">𝄞</text>';
+    for (var i = 0; i < n; i++) {
+      var p = MELODY[(i + seed) % MELODY.length], x = 76 + i * 54, y = 62 - p * 5;
+      var stem = p < 4 ? '<line class="stem" x1="' + (x + 6) + '" x2="' + (x + 6) + '" y1="' + y + '" y2="' + (y - 30) + '"/>'
+                       : '<line class="stem" x1="' + (x - 6) + '" x2="' + (x - 6) + '" y1="' + y + '" y2="' + (y + 30) + '"/>';
+      svg += '<g class="n" data-i="' + i + '" data-midi="' + STEP_MIDI[p] + '"><circle class="hit" cx="' + x + '" cy="' + y + '" r="16"/>' +
+             '<ellipse cx="' + x + '" cy="' + y + '" rx="6.6" ry="4.7"/>' + stem + "</g>";
+      if (i % 4 === 3 && i < n - 1) svg += '<line class="bar" x1="' + (x + 27) + '" x2="' + (x + 27) + '" y1="22" y2="62"/>';
+    }
+    svg += '<line class="bar" x1="' + (W - 6) + '" x2="' + (W - 6) + '" y1="22" y2="62"/>';
+    svg += '<line class="bar" x1="' + (W - 1) + '" x2="' + (W - 1) + '" y1="22" y2="62" style="stroke-width:3"/>';
+    return svg + "</svg>";
+  }
+  function renderRep() {
+    var box = document.getElementById("rep");
+    box.innerHTML = "";
+    [["opera", "repOpera"], ["concert", "repConcert"], ["lied", "repLied"]].forEach(function (g, gi) {
+      var items = S.repertoire[g[0]];
+      var wrap = el("div", "rep-group");
+      var head = el("div", "rep-head", "<h3>" + esc(I.t(g[1])) + "</h3>" + scoreSVG(items.length, gi * 3));
+      var ul = el("ul", "rep-list");
+      items.forEach(function (it, i) {
+        var main = it.role ? I.L(it.role) : I.L(it.work);
+        var sub = it.role ? I.L(it.work) + " · " + it.composer : it.composer;
+        var li = el("li", null, '<span class="r-main">' + esc(main) + '</span><span class="r-sub">' + esc(sub) + "</span>");
+        li.dataset.i = i;
+        ul.appendChild(li);
+      });
+      wrap.appendChild(head);
+      wrap.appendChild(ul);
+      box.appendChild(wrap);
+
+      function light(i, on) {
+        var n = head.querySelector('.n[data-i="' + i + '"]'), li = ul.querySelector('li[data-i="' + i + '"]');
+        if (n) n.classList.toggle("on", on);
+        if (li) li.classList.toggle("on", on);
+        if (on && n) tone(+n.dataset.midi, .45);
+      }
+      [head, ul].forEach(function (zone) {
+        zone.addEventListener("pointerover", function (e) {
+          var t = e.target.closest("[data-i]");
+          if (t && !t.contains(e.relatedTarget)) light(t.dataset.i, true);
+        });
+        zone.addEventListener("pointerout", function (e) {
+          var t = e.target.closest("[data-i]");
+          if (t && !t.contains(e.relatedTarget)) light(t.dataset.i, false);
+        });
+      });
+    });
+  }
+
+  /* ---------- dates, press, vita, contact ---------- */
+  function renderDates() {
+    var ol = document.getElementById("dates");
+    ol.innerHTML = "";
+    S.dates.forEach(function (d) {
+      var li = el("li", "date");
+      var comp = I.L(d.composer) + (I.L(d.role) ? " · " + I.L(d.role) : "");
+      li.innerHTML =
+        '<time class="d-when" datetime="' + d.date + '"><span class="d-day">' + I.formatDate(d.date, { day: "2-digit" }) +
+        '</span><span class="d-mon">' + esc(I.formatDate(d.date, { month: "short", year: "numeric" })) + "</span></time>" +
+        '<div><p class="d-work">' + esc(I.L(d.work)) + '</p><p class="d-comp">' + esc(comp) + "</p></div>" +
+        '<p class="d-venue">' + esc(d.venue) + "</p>";
+      ol.appendChild(li);
+    });
+    document.getElementById("past").textContent = S.pastVenues.join(" · ");
+  }
+  function renderPress() {
+    var box = document.getElementById("quotes");
+    var open = "“";
+    box.innerHTML = "";
+    S.press.forEach(function (p) {
+      box.appendChild(el("figure", "quote",
+        '<span class="mark" aria-hidden="true">' + open + "</span><blockquote>" + esc(I.L(p.quote)) +
+        "</blockquote><figcaption>" + esc(I.L(p.source)) + "</figcaption>"));
+    });
+  }
+  function renderVita() {
+    document.getElementById("bio0").textContent = I.L(S.bio[0]);
+    document.getElementById("bio1").textContent = I.L(S.bio[1]);
+    document.getElementById("hl").innerHTML = S.highlights.map(function (h) {
+      return "<dt>" + esc(h.year) + "</dt><dd>" + esc(I.L(h.text)) + "</dd>";
+    }).join("");
+    var kit = document.getElementById("kit");
+    kit.innerHTML = "";
+    S.presskit.forEach(function (k) {
+      var li = el("li", null, '<button type="button"><span>' + esc(I.L(k)) + '</span><span aria-hidden="true">↓</span></button>');
+      li.querySelector("button").addEventListener("click", function () {
+        document.getElementById("kitMsg").textContent = I.t("kitMsg");
+      });
+      kit.appendChild(li);
+    });
+    document.getElementById("kitMsg").textContent = "";
+  }
+  function renderContact() {
+    document.getElementById("mail").textContent = S.email;
+    document.getElementById("mailto").href = "mailto:" + S.email;
+    document.getElementById("phone").textContent = S.phone;
+    document.getElementById("copyright").textContent = "© " + new Date().getFullYear() + " " + S.first + " " + S.last;
+  }
+  var copyBtn = document.getElementById("copy");
+  copyBtn.addEventListener("click", function () {
+    function done() {
+      copyBtn.textContent = I.t("copied");
+      setTimeout(function () { copyBtn.textContent = I.t("copy"); }, 1800);
+    }
+    function fallback() {
+      var r = document.createRange();
+      r.selectNodeContents(document.getElementById("mail"));
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    }
+    try {
+      navigator.clipboard.writeText(S.email).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  function renderSiteFields() {
+    document.querySelectorAll("[data-site]").forEach(function (e) { e.textContent = I.L(S[e.dataset.site]); });
+  }
+
+  function renderAll() {
+    renderSiteFields();
+    labelKeyboard(kbBig);
+    labelKeyboard(kbDock);
+    document.querySelectorAll('.key-tag[data-note="6"]').forEach(function (k) { k.textContent = I.lang === "de" ? "H" : "B"; });
+    renderTracks();
+    renderVideos();
+    renderRep();
+    renderDates();
+    renderPress();
+    renderVita();
+    renderContact();
+    paintSound();
+  }
+  document.addEventListener("langchange", renderAll);
+  I.init(DICT);
+})();
+</script>
+</body>
+</html>
