@@ -399,10 +399,10 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
   <button type="button" id="miniStop" tabindex="-1" data-i18n-aria="pause"></button>
 </div>
 
-<script src="assets/js/content.js"></script>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/demo-audio.js"></script>
-<script src="assets/js/staff.js"></script>
+<script src="assets/js/content.js?v=2026-10-11"></script>
+<script src="assets/js/i18n.js?v=2026-10-11"></script>
+<script src="assets/js/demo-audio.js?v=2026-10-11"></script>
+<script src="assets/js/staff.js?v=2026-10-11"></script>
 <script>
 (function () {
   var S = window.SITE, I = window.I18N, A = window.DemoAudio, Staff = window.Staff;
@@ -603,7 +603,8 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
   function renderVideos() {
     var box = document.getElementById("videos");
     box.innerHTML = "";
-    S.videos.forEach(function (v) {
+    // skip entries without a YouTube ID (e.g. a stale cached content.js)
+    S.videos.filter(function (v) { return v.youtube; }).forEach(function (v) {
       var f = el("figure", "video",
         '<button class="v-poster" type="button"><span class="v-play"></span></button>' +
         '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(I.L(v.meta)) + "</p></figcaption>");
