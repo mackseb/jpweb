@@ -55,6 +55,11 @@ Audio only starts after a user gesture (click a play button).
 | `entwuerfe/index.html` | Concept chooser |
 | `entwuerfe/{clavier,premiere,resonanz}/index.html` | Concepts A, B, C (self-contained pages using `../../assets/js/…`) |
 
+Script tags carry a version query (`assets/js/content.js?v=2026-10-11`). GitHub Pages lets browsers
+cache files for 10 minutes, so after changing anything in `assets/js/`, bump the `v=` value on every
+page (`index.html`, `entwuerfe/index.html`, `entwuerfe/*/index.html`); otherwise visitors can get a new
+page with old scripts.
+
 Script load order on every page: `content.js` → `i18n.js` → `demo-audio.js` → `staff.js`
 (homepage only) → inline page script.
 
