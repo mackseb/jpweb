@@ -1,7 +1,7 @@
 /*
  * DemoAudio: placeholder sound for the prototypes.
  * Synthesizes a voice-like melody ("ah" vowel via formant filters, with
- * vibrato) over a soft piano accompaniment, so the players and visualizers
+ * vibrato) over a soft pad accompaniment, so the players and visualizers
  * work before her real recordings exist. Everything runs through one
  * AnalyserNode, which the pages read for their animations. For the final
  * site an <audio> element is connected to the same analyser via
@@ -104,7 +104,7 @@
   }
 
   // Voice-like line: two detuned saws through "ah" formants, legato with delayed vibrato.
-  function voiceAt(notes, bpm, t0, out) {
+  function voiceAt(notes, bpm, t0, out, sched) {
     var spb = 60 / bpm;
     var osc = ctx.createOscillator(), osc2 = ctx.createOscillator();
     osc.type = osc2.type = "sawtooth";
@@ -158,6 +158,7 @@
       amp.gain.setTargetAtTime(0.36, t + d - 0.08, 0.025);
       vibAmt.gain.setTargetAtTime(0, t, 0.03);
       vibAmt.gain.setTargetAtTime(d > 0.5 ? 32 : 10, t + 0.16, 0.18);
+      if (sched) sched.push({ t: t, d: d, midi: n[0] });
       fresh = false;
       t += d;
     });
@@ -166,15 +167,36 @@
     return t;
   }
 
+  // Soft sustained pad (string-like), so the voice leads rather than a piano.
+  function padAt(midi, when, dur, vel, out) {
+    var g = ctx.createGain();
+    var lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 1300;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.linearRampToValueAtTime(vel, when + 0.45);
+    g.gain.setValueAtTime(vel, when + dur);
+    g.gain.linearRampToValueAtTime(0.0001, when + dur + 0.7);
+    [-7, 7].forEach(function (cents) {
+      var o = ctx.createOscillator();
+      o.type = "triangle";
+      o.frequency.value = mtof(midi);
+      o.detune.value = cents;
+      o.connect(g);
+      o.start(when);
+      o.stop(when + dur + 0.8);
+    });
+    g.connect(lp);
+    lp.connect(out || bus);
+  }
+
   function accompAt(chords, bpm, t0, out) {
     var bar = 4 * 60 / bpm;
     chords.forEach(function (name, i) {
-      var c = CH[name], t = t0 + i * bar;
-      pianoAt(c[0], t, 0.55, out);
-      c[1].forEach(function (m, j) { pianoAt(m, t + 0.05 + j * 0.07, 0.32, out); });
-      if (i < chords.length - 1) {
-        c[1].forEach(function (m, j) { pianoAt(m, t + bar / 2 + j * 0.05, 0.22, out); });
-      }
+      var c = CH[name], t = t0 + i * bar, last = i === chords.length - 1;
+      var dur = last ? bar * 1.6 : bar;
+      padAt(c[0], t, dur, 0.06, out);
+      c[1].forEach(function (m) { padAt(m, t, dur, 0.035, out); });
     });
   }
 
@@ -194,10 +216,11 @@
     var t0 = ctx.currentTime + 0.12;
     var g = ctx.createGain();
     g.connect(bus);
-    var end = voiceAt(D.notes, D.bpm, t0, g);
+    var sched = [];
+    var end = voiceAt(D.notes, D.bpm, t0, g, sched);
     accompAt(D.chords, D.bpm, t0, g);
     var dur = end - t0 + 1.2;
-    current = { index: i, t0: t0, duration: dur, gain: g };
+    current = { index: i, t0: t0, duration: dur, gain: g, sched: sched };
     current.timer = setTimeout(function () {
       if (current && current.index === i) { current = null; emit(); }
     }, (dur + 0.3) * 1000);
@@ -230,6 +253,25 @@
     progress: function () {
       if (!current) return 0;
       return Math.min(1, Math.max(0, (ctx.currentTime - current.t0) / current.duration));
+    },
+    // The pitch being sung right now (MIDI, fractional with vibrato), or null in rests.
+    // For real recordings this reads a pre-computed pitch track instead of the schedule.
+    pitch: function () {
+      if (!current) return null;
+      var now = ctx.currentTime, sc = current.sched;
+      for (var i = 0; i < sc.length; i++) {
+        var n = sc[i];
+        if (now >= n.t && now < n.t + n.d) {
+          if (n.midi == null) return null;
+          var age = now - n.t, depth = 0;
+          if (age > 0.16) depth = (n.d > 0.5 ? 0.32 : 0.1) * (1 - Math.exp(-(age - 0.16) / 0.18));
+          return {
+            midi: n.midi + depth * Math.sin(2 * Math.PI * 5.4 * (now - current.t0)),
+            note: n.midi, index: i, age: age, dur: n.d
+          };
+        }
+      }
+      return null;
     },
     elapsed: function () {
       return current ? Math.max(0, ctx.currentTime - current.t0) : 0;

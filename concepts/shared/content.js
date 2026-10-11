@@ -5,8 +5,8 @@
  * languages) or { de, en } pairs.
  */
 window.SITE = {
-  first: "Maria",
-  last: "Muster",
+  first: "Julia",
+  last: "Planitz",
   voice: { de: "Sopran", en: "Soprano" },
   genres: { de: "Oper · Konzert · Lied", en: "Opera · Concert · Song" },
   claim: {
@@ -132,8 +132,8 @@ window.SITE = {
 
   bio: [
     {
-      de: "Maria Muster ist lyrischer Sopran mit Schwerpunkt auf Mozart, dem deutschen Lied und dem Oratorium. Sie studierte Gesang an der Hochschule für Musik Beispielstadt und gehörte zwei Spielzeiten dem Ensemble des Stadttheaters Musterstadt an.",
-      en: "Maria Muster is a lyric soprano with a focus on Mozart, German song and oratorio. She studied voice at the Beispielstadt University of Music and spent two seasons as an ensemble member at the Musterstadt municipal theatre."
+      de: "Julia Planitz ist Sopranistin und auf der Opernbühne, im Oratorium und im Liederabend zu Hause. Ausbildung, Ensembles und Schwerpunkte stehen hier, sobald ihre Vita vorliegt.",
+      en: "Julia Planitz is a soprano at home on the opera stage, in oratorio and in song recitals. Her training, ensembles and focus will appear here once her CV is in."
     },
     {
       de: "Hier steht später ihre eigene Biografie: kurz genug für ein Programmheft und lang genug, um neugierig zu machen.",

@@ -5,9 +5,22 @@ send to agencies, opera houses and promoters to win engagements. Black and white
 like a grand piano, with motion. Static HTML/CSS/JS, hosted on GitHub Pages under
 a custom domain.
 
-## Status: concept round 1
+## Status: concept round 2
 
-Three clickable prototypes with the same placeholder content, staged differently:
+**Concept D · Fünf Linien** (`concepts/fuenf-linien/`) is the current direction. It combines
+Resonanz (sound and frequencies) with Clavier (drifting notes, repertoire on a staff), without the
+piano: her voice is the instrument. Her name sits on five staff lines; each line is a pitch
+(E4 G4 B4 D5 F5) and vibrates when she sings near it. The listening room has a prototype-only
+switch between four visualisations:
+
+| Visualisation | What it shows |
+| --- | --- |
+| Notenlinien | The five lines resonate with the sung pitch |
+| Melodiespur | The melody is written onto the staff; held notes become note heads |
+| Klangschrift | Scrolling spectrogram as engraving, staff lines at their true frequency |
+| Obertöne | Harmonic comb of the sung note, singer's formant marked |
+
+Round 1, kept for comparison: three prototypes with the same placeholder content, staged differently:
 
 | Concept | Idea | What moves |
 | --- | --- | --- |
@@ -15,10 +28,10 @@ Three clickable prototypes with the same placeholder content, staged differently
 | **B · Premiere** (`concepts/premiere/`) | Opera house; the page reads like a programme booklet | Curtain opens on load, follow-spot tracks the mouse, role marquee, acts light up while scrolling, curtain closes at the end |
 | **C · Resonanz** (`concepts/resonanz/`) | Her voice made visible | Hairline strings part around the cursor and vibrate live with the recording, kinetic name, sideways repertoire band |
 
-`index.html` is the chooser page that links to all three.
+`index.html` is the chooser page that links to all concepts.
 
-All names, texts, dates, venues and press quotes are **placeholders**. Instead of
-her recordings, a synthesized demo melody plays (`concepts/shared/demo-audio.js`).
+Except her name (Julia Planitz), all texts, dates, venues and press quotes are **placeholders**.
+Instead of her recordings, a synthesized demo melody plays (`concepts/shared/demo-audio.js`).
 
 ## Preview locally
 
@@ -33,7 +46,9 @@ python3 -m http.server 8000
 index.html                     concept chooser
 concepts/shared/content.js     all site content (DE/EN), shared by the concepts
 concepts/shared/i18n.js        DE/EN switch (data-i18n attributes, remembers the choice)
-concepts/shared/demo-audio.js  placeholder audio + analyser for the visualizers
+concepts/shared/demo-audio.js  placeholder audio + analyser + current sung pitch
+concepts/shared/staff.js       five-line staff renderer and the four visualisations
+concepts/fuenf-linien/index.html  Concept D (round 2)
 concepts/clavier/index.html    Concept A
 concepts/premiere/index.html   Concept B
 concepts/resonanz/index.html   Concept C
@@ -48,6 +63,9 @@ updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
   links, CV, press quotes, dates.
 - Real audio: play an `<audio>` element and connect it to the same analyser via
   `AudioContext.createMediaElementSource()`, so the visuals follow her voice.
+- Pitch for the melody trace and line resonance: pre-compute a pitch track per recording
+  offline (e.g. pYIN) and serve it through the same `DemoAudio.pitch()` API. Live pitch
+  detection is unreliable once an orchestra or piano plays along.
 - Videos: keep the click-to-load facade (no YouTube/Vimeo requests before a click).
 - Self-host the fonts instead of loading them from Google Fonts (GDPR).
 - Add Impressum and Datenschutzerklärung pages (mandatory in Germany).

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Clavier, Premiere, Resonanz</title>
-<meta name="description" content="Drei Website-Entwürfe für eine Sopranistin, zum Vergleichen.">
+<title>Julia Planitz Entwürfe</title>
+<meta name="description" content="Website-Entwürfe für die Sopranistin Julia Planitz, zum Vergleichen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500&display=swap">
@@ -90,6 +90,13 @@ h1 { font-size: clamp(3rem, 8vw, 5.6rem); line-height: .98; letter-spacing: -.02
 .pv-premiere .val { position: absolute; left: 0; right: 0; top: 0; height: 10%; background: repeating-linear-gradient(90deg, #09090a 0 4px, #1e1d1f 4px 12px, #3b3a3d 12px 15px, #1e1d1f 15px 22px); }
 @keyframes curtain { 0%, 8% { transform: scaleX(1); } 38%, 78% { transform: scaleX(.13); } 100% { transform: scaleX(1); } }
 
+.round-label { margin: 0 0 14px; }
+.round + .round-label { margin-top: clamp(40px, 6vw, 64px); }
+.round .concepts { border-top-width: 2px; }
+.pv-linien { background: #fafaf8; }
+.pv-linien canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pv-linien .nm { position: absolute; left: 8%; right: 8%; top: 10%; color: #0c0c0c; font: italic 400 clamp(2rem, 5.4vw, 3.4rem)/.86 var(--f-display); letter-spacing: -.03em; display: grid; }
+.pv-linien .nm span:last-child { justify-self: end; font-style: normal; }
 .pv-resonanz { background: #fafaf8; }
 .pv-resonanz canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pv-resonanz .nm { position: absolute; left: 8%; right: 8%; bottom: 10%; color: #0c0c0c; font: italic 400 clamp(1.8rem, 5vw, 3rem)/.85 var(--f-display); letter-spacing: -.03em; display: grid; }
@@ -115,7 +122,7 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
 <body>
 <div class="page">
   <div class="top">
-    <p class="label" data-i18n="kicker">Website für eine Sopranistin · Entwurfsrunde 1</p>
+    <p class="label" data-i18n="kicker">Website für Julia Planitz, Sopran</p>
     <div class="lang" role="group" aria-label="Sprache / Language">
       <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="en">EN</button>
@@ -123,15 +130,38 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
   </div>
 
   <header class="intro">
-    <h1 data-i18n="h1">Drei Entwürfe</h1>
+    <h1 data-i18n="h1">Entwürfe</h1>
     <p data-i18n="intro1"></p>
     <p class="note" data-i18n="intro2"></p>
   </header>
 
-  <section class="concepts" aria-label="Entwürfe">
+  <p class="label round-label" data-i18n="round2">Runde 2 · aktueller Stand</p>
+  <section class="round" aria-label="Runde 2">
+    <div class="concepts">
+      <article class="concept">
+        <a class="pv pv-linien" href="concepts/fuenf-linien/index.html" aria-hidden="true" tabindex="-1">
+          <canvas id="pvLinien"></canvas>
+          <div class="nm"><span>Julia</span><span>Planitz</span></div>
+        </a>
+        <div class="c-body">
+          <div class="c-head"><span class="c-letter" data-i18n="dLetter">Entwurf D</span><h2 data-i18n="dName">Fünf Linien</h2></div>
+          <p class="mood" data-i18n="dMood"></p>
+          <dl>
+            <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="dMoves"></dd>
+            <dt data-i18n="dFromLabel">Kombiniert</dt><dd data-i18n="dFrom"></dd>
+            <dt data-i18n="dLabLabel">Zum Vergleich</dt><dd data-i18n="dLab"></dd>
+          </dl>
+          <a class="open" href="concepts/fuenf-linien/index.html"><span data-i18n="openD">Fünf Linien öffnen</span> →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <p class="label round-label" data-i18n="round1">Runde 1</p>
+  <section class="concepts" aria-label="Runde 1">
     <article class="concept">
       <a class="pv pv-clavier" href="concepts/clavier/index.html" aria-hidden="true" tabindex="-1">
-        <div class="name">Maria Muster</div>
+        <div class="name">Julia Planitz</div>
         <div class="mini-kb">
           <i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i>
           <b style="left:14.28%"></b><b style="left:28.57%"></b><b style="left:57.14%"></b><b style="left:71.43%"></b><b style="left:85.71%"></b>
@@ -152,7 +182,7 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
     <article class="concept">
       <a class="pv pv-premiere" href="concepts/premiere/index.html" aria-hidden="true" tabindex="-1">
         <div class="arch"></div>
-        <div class="bill">Maria Muster</div>
+        <div class="bill">Julia Planitz</div>
         <div class="cur l"></div><div class="cur r"></div><div class="val"></div>
       </a>
       <div class="c-body">
@@ -170,7 +200,7 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
     <article class="concept">
       <a class="pv pv-resonanz" href="concepts/resonanz/index.html" aria-hidden="true" tabindex="-1">
         <canvas id="pvStrings"></canvas>
-        <div class="nm"><span>Maria</span><span>Muster</span></div>
+        <div class="nm"><span>Julia</span><span>Planitz</span></div>
       </a>
       <div class="c-body">
         <div class="c-head"><span class="c-letter" data-i18n="cLetter">Entwurf C</span><h2>Resonanz</h2></div>
@@ -218,9 +248,15 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
 (function () {
   window.I18N.init({
     de: {
-      kicker: "Website für eine Sopranistin · Entwurfsrunde 1",
-      h1: "Drei Entwürfe",
-      intro1: "Ein digitaler Auftritt, den sie an Agenturen, Opernhäuser und Veranstalter schicken kann. Alle drei Entwürfe zeigen denselben Inhalt, nur anders inszeniert: schwarz und weiß wie ein Flügel, mit Bewegung.",
+      kicker: "Website für Julia Planitz, Sopran",
+      h1: "Entwürfe",
+      intro1: "Ein digitaler Auftritt, den sie an Agenturen, Opernhäuser und Veranstalter schicken kann. Runde 2 verbindet Resonanz und Clavier zu einem Entwurf, in dem ihre Stimme das Instrument ist. Die drei Entwürfe aus Runde 1 bleiben zum Vergleich.",
+      round2: "Runde 2 · aktueller Stand", round1: "Runde 1",
+      dLetter: "Entwurf D", dName: "Fünf Linien", openD: "Fünf Linien öffnen",
+      dMood: "Die Stimme ist das Instrument: fünf Notenlinien machen sie sichtbar.",
+      dMoves: "Ihr Name steht auf fünf Notenlinien, die der Maus ausweichen und mit ihrer Stimme schwingen; jede Linie ist ein Ton. Beim Hören schreibt die Stimme ihre Melodie auf die Linien, gehaltene Töne werden zu Noten. Zwischen den Kapiteln wandern Noten über Notensysteme.",
+      dFromLabel: "Kombiniert", dFrom: "Klang und Frequenzen aus Resonanz, wandernde Noten und Repertoire aus Clavier, ohne Klavier.",
+      dLabLabel: "Zum Vergleich", dLab: "Im Hörraum lassen sich vier Darstellungen umschalten: Notenlinien, Melodiespur, Klangschrift und Obertöne.",
       intro2: "Name, Texte, Termine und Zitate sind Platzhalter. Statt ihrer Aufnahmen erklingt eine synthetische Demo-Melodie.",
       moves: "Was sich bewegt", strength: "Stärke", watch: "Achtung",
       aLetter: "Entwurf A", openA: "Clavier öffnen",
@@ -240,9 +276,9 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
       cMinus: "Braucht gute Aufnahmen, denn die Hörproben stehen im Mittelpunkt.",
       tipsTitle: "So vergleichen Sie",
       tip1: "Öffnen Sie die Entwürfe auch auf dem Handy, denn dort sehen Veranstalter sie oft zuerst.",
-      tip2: "Clavier: oben rechts „♪ Klang“ einschalten und über die Tasten fahren. Premiere: Maus über die Bühne bewegen, „Vorhang noch einmal“ antippen. Resonanz: „Stimme hören“ drücken.",
+      tip2: "Fünf Linien: „Stimme hören“ drücken, dann im Hörraum zwischen den vier Darstellungen umschalten. Clavier: „♪ Klang“ einschalten und über die Tasten fahren. Premiere: Maus über die Bühne bewegen. Resonanz: „Stimme hören“ drücken.",
       tip3: "Oben rechts lässt sich jede Seite zwischen Deutsch und Englisch umschalten.",
-      tip4: "Mischungen sind möglich, zum Beispiel der Vorhang aus B mit den Saiten aus C.",
+      tip4: "Weitere Mischungen sind möglich, zum Beispiel der Vorhang aus Premiere als Auftakt.",
       sharedTitle: "In allen drei Entwürfen",
       s1: "Hörproben und Videos, die erst nach einem Klick von YouTube oder Vimeo laden",
       s2: "Repertoire nach Oper, Konzert & Oratorium und Lied",
@@ -251,16 +287,22 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
       s5: "Vita mit Pressemappe zum Herunterladen",
       s6: "Kontakt, Impressum und Datenschutz",
       nextTitle: "Danach",
-      n1: "Einen Entwurf auswählen oder eine Mischung festlegen.",
+      n1: "Eine der vier Darstellungen in Fünf Linien auswählen, oder zwei kombinieren.",
       n2: "Material sammeln: Fotos, Aufnahmen (MP3), Video-Links, Vita, Zitate, Termine.",
       n3: "Die echte Seite mit ihren Inhalten bauen, auf Deutsch und Englisch.",
       n4: "Auf GitHub Pages veröffentlichen und die eigene Domain verbinden.",
-      foot: "Prototypen, Stand Entwurfsrunde 1."
+      foot: "Prototypen, Stand Entwurfsrunde 2."
     },
     en: {
-      kicker: "Website for a soprano · Concept round 1",
-      h1: "Three concepts",
-      intro1: "A digital calling card she can send to agencies, opera houses and promoters. All three concepts carry the same content, staged differently: black and white like a grand piano, with motion.",
+      kicker: "Website for Julia Planitz, soprano",
+      h1: "Concepts",
+      intro1: "A digital calling card she can send to agencies, opera houses and promoters. Round 2 combines Resonanz and Clavier into one concept in which her voice is the instrument. The three round-1 concepts stay for comparison.",
+      round2: "Round 2 · current", round1: "Round 1",
+      dLetter: "Concept D", dName: "Five Lines", openD: "Open Five Lines",
+      dMood: "The voice is the instrument: five staff lines make it visible.",
+      dMoves: "Her name sits on five staff lines that part around the mouse and vibrate with her voice; each line is a pitch. While listening, the voice writes its melody onto the lines and held notes become note heads. Between chapters, notes drift across staves.",
+      dFromLabel: "Combines", dFrom: "Sound and frequencies from Resonanz, drifting notes and repertoire from Clavier, without the piano.",
+      dLabLabel: "To compare", dLab: "The listening room switches between four visualisations: staff lines, melody trace, engraved spectrum and overtones.",
       intro2: "Name, texts, dates and quotes are placeholders. A synthesized demo melody stands in for her recordings.",
       moves: "What moves", strength: "Strength", watch: "Watch out",
       aLetter: "Concept A", openA: "Open Clavier",
@@ -280,9 +322,9 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
       cMinus: "Needs good recordings, since listening is the centrepiece.",
       tipsTitle: "How to compare",
       tip1: "Open the concepts on a phone too, since that is often where promoters see them first.",
-      tip2: "Clavier: turn on “♪ Sound” at the top right and run across the keys. Premiere: move the mouse over the stage, tap “Curtain again”. Resonanz: press “Hear the voice”.",
+      tip2: "Five Lines: press “Hear the voice”, then switch between the four visualisations in the listening room. Clavier: turn on “♪ Sound” and run across the keys. Premiere: move the mouse over the stage. Resonanz: press “Hear the voice”.",
       tip3: "Each page switches between German and English at the top right.",
-      tip4: "Mixing is possible, for example B's curtain with C's strings.",
+      tip4: "Further mixes are possible, for example Premiere's curtain as an opening.",
       sharedTitle: "In all three concepts",
       s1: "Recordings and videos that load from YouTube or Vimeo only after a click",
       s2: "Repertoire by opera, concert & oratorio, and song",
@@ -291,11 +333,11 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
       s5: "Biography with a downloadable press kit",
       s6: "Contact, legal notice and privacy policy",
       nextTitle: "Next",
-      n1: "Pick a concept or agree on a mix.",
+      n1: "Pick one of the four visualisations in Five Lines, or combine two.",
       n2: "Gather material: photos, recordings (MP3), video links, CV, quotes, dates.",
       n3: "Build the real site with her content, in German and English.",
       n4: "Publish on GitHub Pages and connect the custom domain.",
-      foot: "Prototypes, concept round 1."
+      foot: "Prototypes, concept round 2."
     }
   });
 
@@ -326,6 +368,57 @@ ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(
   size();
   window.addEventListener("resize", size);
   requestAnimationFrame(draw);
+
+  // Concept D miniature: five lines, the nearest one resonating, a melody written onto them
+  var d = document.getElementById("pvLinien"), dg = d.getContext("2d");
+  var MEL = [2, 4, 7, 6, 5, 3, 4, 9, 8, 6, 5, 7], NOTE = 650, SPEED = .06;
+  function stepAt(time) {
+    var i = Math.floor(time / NOTE), f = time / NOTE - i;
+    var a = MEL[((i - 1) % MEL.length + MEL.length) % MEL.length], b = MEL[i % MEL.length];
+    var s = f < .1 ? a + (b - a) * (f / .1) : b;
+    return s + Math.sin(time * .034) * .12 * Math.min(1, f * 3);
+  }
+  function sizeD() {
+    var r = Math.min(2, window.devicePixelRatio || 1);
+    d.width = d.clientWidth * r; d.height = d.clientHeight * r; dg.setTransform(r, 0, 0, r, 0, 0);
+  }
+  function drawD(t) {
+    var w = d.clientWidth, h = d.clientHeight, gap = h * .075, bottom = h * .8, pen = w * .8;
+    var yOf = function (s) { return bottom - s * gap / 2; };
+    var now = stepAt(t);
+    dg.clearRect(0, 0, w, h);
+    for (var k = 0; k < 5; k++) {
+      var res = Math.exp(-Math.pow(now - 2 * k, 2) / 2.9);
+      dg.strokeStyle = "rgba(12,12,12," + (.3 + res * .45).toFixed(3) + ")";
+      dg.lineWidth = 1;
+      dg.beginPath();
+      for (var x = 0; x <= w; x += 4) {
+        var u = x / w, y = yOf(2 * k) + res * gap * .55 * Math.sin(Math.PI * (2 + k) * u) * Math.cos(t * (.01 + .0025 * k));
+        if (x) dg.lineTo(x, y); else dg.moveTo(x, y);
+      }
+      dg.stroke();
+    }
+    dg.strokeStyle = "rgba(12,12,12,.9)";
+    dg.lineWidth = 1.6;
+    dg.beginPath();
+    for (var px = pen; px > 0; px -= 3) {
+      var py = yOf(stepAt(t - (pen - px) / SPEED));
+      if (px === pen) dg.moveTo(px, py); else dg.lineTo(px, py);
+    }
+    dg.stroke();
+    dg.fillStyle = "#0c0c0c";
+    var first = Math.floor((t - pen / SPEED) / NOTE);
+    for (var n = Math.max(0, first); n * NOTE <= t; n++) {
+      var hx = pen - (t - n * NOTE) * SPEED, hs = MEL[n % MEL.length];
+      dg.globalAlpha = Math.min(1, hx / (w * .25));
+      dg.beginPath(); dg.ellipse(hx, yOf(hs), gap * .5, gap * .36, -.35, 0, Math.PI * 2); dg.fill();
+    }
+    dg.globalAlpha = 1;
+    if (!still) requestAnimationFrame(drawD);
+  }
+  sizeD();
+  window.addEventListener("resize", sizeD);
+  requestAnimationFrame(drawD);
 })();
 </script>
 </body>
