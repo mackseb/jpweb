@@ -27,14 +27,14 @@ Round 1, kept for comparison: three prototypes with the same placeholder content
 
 | Concept | Idea | What moves |
 | --- | --- | --- |
-| **A · Clavier** (`concepts/clavier/`) | The keyboard is the navigation | Keys go down (and can sound), a music staff draws itself between chapters, the current chapter's key stays held, the player's key strip follows the music |
-| **B · Premiere** (`concepts/premiere/`) | Opera house; the page reads like a programme booklet | Curtain opens on load, follow-spot tracks the mouse, role marquee, acts light up while scrolling, curtain closes at the end |
-| **C · Resonanz** (`concepts/resonanz/`) | Her voice made visible | Hairline strings part around the cursor and vibrate live with the recording, kinetic name, sideways repertoire band |
+| **A · Clavier** (`entwuerfe/clavier/`) | The keyboard is the navigation | Keys go down (and can sound), a music staff draws itself between chapters, the current chapter's key stays held, the player's key strip follows the music |
+| **B · Premiere** (`entwuerfe/premiere/`) | Opera house; the page reads like a programme booklet | Curtain opens on load, follow-spot tracks the mouse, role marquee, acts light up while scrolling, curtain closes at the end |
+| **C · Resonanz** (`entwuerfe/resonanz/`) | Her voice made visible | Hairline strings part around the cursor and vibrate live with the recording, kinetic name, sideways repertoire band |
 
 The earlier concepts and the chooser page live under `entwuerfe/`.
 
 Except her name (Julia Planitz), all texts, dates, venues and press quotes are **placeholders**.
-Instead of her recordings, a synthesized demo melody plays (`concepts/shared/demo-audio.js`).
+Instead of her recordings, a synthesized demo melody plays (`assets/js/demo-audio.js`).
 
 ## Preview locally
 
@@ -56,6 +56,7 @@ entwuerfe/index.html           concept chooser
 entwuerfe/clavier/index.html   Concept A
 entwuerfe/premiere/index.html  Concept B
 entwuerfe/resonanz/index.html  Concept C
+AGENTS.md                      guide for coding agents (CLAUDE.md imports it)
 ```
 
 Content lives in one place: edit `assets/js/content.js` and every page
