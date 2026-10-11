@@ -51,6 +51,7 @@ assets/js/content.js           all site content (DE/EN), shared by every page
 assets/js/i18n.js              DE/EN switch (data-i18n attributes, remembers the choice)
 assets/js/demo-audio.js        placeholder audio + analyser + current sung pitch
 assets/js/staff.js             five-line staff renderer and the visualisations
+assets/img/portrait.jpg        portrait in the Vita section (shown in black and white via CSS)
 entwuerfe/index.html           concept chooser
 entwuerfe/clavier/index.html   Concept A
 entwuerfe/premiere/index.html  Concept B
@@ -62,7 +63,7 @@ updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
 
 ## Before going live (after a concept is chosen)
 
-- Replace placeholders with real content: photos, MP3 recordings, YouTube/Vimeo
+- Replace placeholders with real content: more photos, MP3 recordings, YouTube/Vimeo
   links, CV, press quotes, dates.
 - Real audio: play an `<audio>` element and connect it to the same analyser via
   `AudioContext.createMediaElementSource()`, so the visuals follow her voice.
@@ -72,6 +73,8 @@ updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
 - Videos: keep the click-to-load facade (no YouTube/Vimeo requests before a click).
 - Self-host the fonts instead of loading them from Google Fonts (GDPR).
 - Add Impressum and Datenschutzerklärung pages (mandatory in Germany).
+- Portrait: get a higher-resolution file (the current one is 576 px and looks soft on
+  high-density screens).
 - Add a share image (`og:image`), so links look good in WhatsApp and email.
 - Remove the preview notice and the `noindex` meta tag from `index.html` so search engines list the site.
 - Remove the visualisation switch in the listening room once one view is chosen.
