@@ -47,16 +47,32 @@ window.SITE = {
     }
   ],
 
+  // Real videos (YouTube IDs). Loaded from youtube-nocookie.com only after a click.
   videos: [
     {
-      title: { de: "Liederabend, Ausschnitt", en: "Song recital, excerpt" },
-      meta: "R. Schumann · Frauenliebe und -leben",
-      duration: "6:12"
+      youtube: "1oiSfGX_gZA",
+      title: { de: "Als Chorleiterin in einer Grundschule", en: "As choir director at a primary school" },
+      meta: "YouTube"
     },
     {
-      title: { de: "Operngala, Arie der Musetta", en: "Opera gala, Musetta's waltz" },
-      meta: "G. Puccini · La Bohème",
-      duration: "3:48"
+      youtube: "t6lq3BQm0S0",
+      title: { de: "Stimmworkshop mit Kindern der 3. Klasse", en: "Voice workshop with third-grade children" },
+      meta: "YouTube · 1/2"
+    },
+    {
+      youtube: "uw7m3_Nz3k8",
+      title: { de: "Stimmworkshop mit Kindern der 3. Klasse", en: "Voice workshop with third-grade children" },
+      meta: "YouTube · 2/2"
+    },
+    {
+      youtube: "8f2Z8nmLh_U",
+      title: { de: "Als Chorleiterin im Mädchenchor Wiesbaden", en: "As choir director of the Mädchenchor Wiesbaden" },
+      meta: "YouTube · 1/2"
+    },
+    {
+      youtube: "xsgTrD5fe34",
+      title: { de: "Als Chorleiterin im Mädchenchor Wiesbaden", en: "As choir director of the Mädchenchor Wiesbaden" },
+      meta: "YouTube · 2/2"
     }
   ],
 

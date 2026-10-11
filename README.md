@@ -33,7 +33,8 @@ Round 1, kept for comparison: three prototypes with the same placeholder content
 
 The earlier concepts and the chooser page live under `entwuerfe/`.
 
-Except her name (Julia Planitz), all texts, dates, venues and press quotes are **placeholders**.
+Real so far: her name (Julia Planitz), the Vita, the portrait and the five YouTube videos in the
+"Sehen" section. All other texts, dates, venues and press quotes are **placeholders**.
 Instead of her recordings, a synthesized demo melody plays (`assets/js/demo-audio.js`).
 
 ## Preview locally
@@ -64,14 +65,14 @@ updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
 
 ## Before going live (after a concept is chosen)
 
-- Replace placeholders with real content: more photos, MP3 recordings, YouTube/Vimeo
-  links, CV, press quotes, dates.
+- Replace placeholders with real content: more photos, MP3 recordings, CV, press quotes, dates.
 - Real audio: play an `<audio>` element and connect it to the same analyser via
   `AudioContext.createMediaElementSource()`, so the visuals follow her voice.
 - Pitch for the melody trace and line resonance: pre-compute a pitch track per recording
   offline (e.g. pYIN) and serve it through the same `DemoAudio.pitch()` API. Live pitch
   detection is unreliable once an orchestra or piano plays along.
-- Videos: keep the click-to-load facade (no YouTube/Vimeo requests before a click).
+- Videos: keep the click-to-load facade (no YouTube requests before a click; the homepage then
+  embeds from youtube-nocookie.com). Mention YouTube embeds in the Datenschutzerklärung.
 - Self-host the fonts instead of loading them from Google Fonts (GDPR).
 - Add Impressum and Datenschutzerklärung pages (mandatory in Germany).
 - Portrait: get a higher-resolution file (the current one is 576 px and looks soft on

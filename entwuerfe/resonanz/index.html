@@ -619,7 +619,7 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
     S.videos.forEach(function (v) {
       var f = el("figure", "video",
         '<button class="v-poster" type="button"><span class="v-play"></span></button>' +
-        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + " · " + esc(v.duration) + "</p></figcaption>");
+        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + (v.duration ? " · " + esc(v.duration) : "") + "</p></figcaption>");
       var p = f.querySelector(".v-poster");
       p.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));
       p.addEventListener("click", function () {

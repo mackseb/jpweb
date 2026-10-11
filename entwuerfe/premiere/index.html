@@ -650,7 +650,7 @@ h1, h2, h3 { margin: 0; font-weight: 300; text-wrap: balance; }
     box.innerHTML = "";
     S.videos.forEach(function (v) {
       var f = el("figure", "video",
-        '<button class="v-poster" type="button"><span class="v-play"></span><span class="v-dur">' + esc(v.duration) + "</span></button>" +
+        '<button class="v-poster" type="button"><span class="v-play"></span><span class="v-dur">' + esc(v.duration || "") + "</span></button>" +
         '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + "</p></figcaption>");
       var p = f.querySelector(".v-poster");
       p.setAttribute("aria-label", I.t("listen") + ": " + I.L(v.title));
