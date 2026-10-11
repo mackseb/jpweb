@@ -399,7 +399,7 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
       back: "← Alle Entwürfe",
       navListen: "Hören", navVita: "Vita", navRep: "Repertoire", navPress: "Presse", navDates: "Termine", navContact: "Kontakt",
       heroListen: "Stimme hören", heroStop: "Anhalten", ctaBook: "Booking anfragen",
-      heroHint: "Die fünf Notenlinien folgen Ihrer Bewegung und schwingen mit ihrer Stimme.",
+      heroHint: "Die fünf Notenlinien folgen Ihrer Bewegung. Beim Hören fließen sie zu einer Linie zusammen, die in den Obertönen ihrer Stimme schwingt.",
       listenTitle: "Hören", listenLede: "Wählen Sie eine Aufnahme. Oben im Feld lässt sich umschalten, wie ihre Stimme sichtbar wird.",
       nowPlaying: "Es erklingt", idle: "Bereit", play: "Abspielen", pause: "Anhalten",
       labAria: "Darstellung der Stimme",
@@ -425,7 +425,7 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
       back: "← All concepts",
       navListen: "Listen", navVita: "About", navRep: "Repertoire", navPress: "Press", navDates: "Dates", navContact: "Contact",
       heroListen: "Hear the voice", heroStop: "Stop", ctaBook: "Booking enquiry",
-      heroHint: "The five staff lines follow your movement and vibrate with her voice.",
+      heroHint: "The five staff lines follow your movement. While you listen, they flow into one line that vibrates with the overtones of her voice.",
       listenTitle: "Listen", listenLede: "Choose a recording. Switch at the top of the panel how her voice is made visible.",
       nowPlaying: "Now playing", idle: "Ready", play: "Play", pause: "Stop",
       labAria: "Voice visualisation",
@@ -456,8 +456,9 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
   /* ---------- staves ---------- */
   var heroEl = document.getElementById("top"), nameEl = document.getElementById("name");
   var hero = new Staff(document.getElementById("heroStaff"), {
-    host: heroEl, trace: true, mouse: 42, sigma: 130, idle: 1.4, lineWidth: 1.2, alpha: .5,
-    traceWidth: 2, penX: .82, speed: .14, headScale: .42, vibrato: .3,
+    host: heroEl, mouse: 42, sigma: 130, idle: 1.4, lineWidth: 1.2, alpha: .5, resonate: .35,
+    // while she sings, the staff flows into one line drawn from her overtones
+    merge: { from: .3, to: .56 }, waveHeight: 1.7,
     // the staff spans the two lines of her name
     layout: function (w, h) {
       var c = heroEl.getBoundingClientRect(), r = nameEl.getBoundingClientRect();

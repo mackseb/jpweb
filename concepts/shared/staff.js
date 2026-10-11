@@ -82,12 +82,13 @@
     return G.specS[i] * (1 - t) + (G.specS[Math.min(G.specS.length - 1, i + 1)] || 0) * t;
   }
   // Magnitude 0..1 at a frequency (max of three bins, from dB)
-  function magAt(f) {
-    if (!G.fdbOk) return 0;
+  function magAt(f) { return clamp((dbAt(f) + 92) / 70, 0, 1); }
+
+  function dbAt(f) {
+    if (!G.fdbOk) return -200;
     var an = A.analyser, n = G.fdb.length, i = Math.round(f / (an.context.sampleRate / 2) * n);
-    if (i < 1 || i >= n - 1) return 0;
-    var v = Math.max(G.fdb[i - 1], G.fdb[i], G.fdb[i + 1]);
-    return clamp((v + 92) / 70, 0, 1);
+    if (i < 1 || i >= n - 1) return -200;
+    return Math.max(G.fdb[i - 1], G.fdb[i], G.fdb[i + 1]);
   }
 
   /* ---------- Staff ---------- */
@@ -98,7 +99,7 @@
       mode: "lines", color: "12,12,12", alpha: .5, lineWidth: 1, gap: 10, mid: .5, padL: 0, padR: 0,
       resonate: 1, ripple: 0, idle: .6, mouse: 0, sigma: 80, clef: false, clefX: 0, drift: 0,
       trace: false, traceWidth: 2, penX: .78, speed: .09, penLabel: false, headScale: 1, vibrato: 1,
-      notes: null, onHover: null, layout: null
+      merge: null, waveHeight: 1.7, notes: null, onHover: null, layout: null
     }, opt);
     this.res = [0, 0, 0, 0, 0];
     this.plucks = [];
@@ -107,6 +108,8 @@
     this.lastIdx = -1;
     this.harm = new Float32Array(17);
     this.f0 = 0;
+    this.mergeAmt = 0;
+    this.wv = { a: new Float32Array(7), cycles: 5, amp: 0, phase: 0, last: 0 };
     this.active = -1;
     this.mx = this.my = this.tx = this.ty = -9999;
     this.push = 0;
@@ -204,6 +207,7 @@
     if (o.mode === "spectrogram") return this.drawSpectrogram(t);
     if (o.mode === "overtones") return this.drawOvertones(t);
     this.updateResonance();
+    if (o.merge) this.updateWave(t);
     this.drawLines(t);
     if (o.clef) this.drawClef();
     if (o.mode === "score") this.drawScore(t);
@@ -223,16 +227,62 @@
     }
   };
 
+  /* While she sings, the staff flows into one line drawn from her overtones:
+     each harmonic's measured strength shapes the wave, the pitch sets its density,
+     the loudness its height. */
+  Staff.prototype.updateWave = function (t) {
+    var W = this.wv, p = G.pitch, playing = A && A.playing > -1 && !reduce;
+    var dt = W.last ? Math.min(64, t - W.last) : 16;
+    W.last = t;
+    this.mergeAmt += ((playing ? 1 : 0) - this.mergeAmt) * (1 - Math.exp(-dt / 380));
+    var target = 0;
+    if (p && G.fdbOk) {
+      // overtone strengths as linear amplitudes relative to the strongest one
+      var f0 = mtof(p.midi), db = [], max = -200, n;
+      for (n = 1; n <= 6; n++) { db[n] = dbAt(n * f0); if (db[n] > max) max = db[n]; }
+      for (n = 1; n <= 6; n++) W.a[n] += (Math.pow(10, (db[n] - max) / 20) - W.a[n]) * .2;
+      W.cycles += (5 * f0 / 440 - W.cycles) * .12;
+      target = G.loud;
+    }
+    W.amp += (target - W.amp) * (target > W.amp ? .2 : .08);
+    W.phase += dt * .0025;
+  };
+  Staff.prototype.waveAt = function (u) {
+    var W = this.wv, s = 0, norm = 0;
+    for (var n = 1; n <= 6; n++) {
+      s += W.a[n] * Math.sin(n * (2 * Math.PI * W.cycles * u - W.phase));
+      norm += W.a[n];
+    }
+    return norm > .01 ? s / norm : 0;
+  };
+  function smooth(v) { return v <= 0 ? 0 : v >= 1 ? 1 : v * v * (3 - 2 * v); }
+
   Staff.prototype.drawLines = function (t) {
     var g = this.g, o = this.o, x0 = o.padL, span = this.w - o.padL - o.padR;
-    var P = Math.max(60, Math.round(span / 7));
+    var P = Math.max(60, Math.round(span / (o.merge ? 2.5 : 7))), j, u;
+    // merge weight and the single line's height per point, shared by all five lines
+    var mw = null, wy = null;
+    if (o.merge && this.mergeAmt > .002) {
+      var front = 1 - this.mergeAmt * (1 - o.merge.from), width = o.merge.to - o.merge.from, mid = this.yOf(4);
+      var h = this.wv.amp * this.gap * o.waveHeight;
+      mw = new Float32Array(P + 1);
+      wy = new Float32Array(P + 1);
+      for (j = 0; j <= P; j++) {
+        u = j / P;
+        mw[j] = smooth((u - front) / width);
+        var ru = clamp((u - o.merge.from) / (1 - o.merge.from), 0, 1);
+        wy[j] = mid + this.waveAt(ru) * h * smooth(ru / .12) * clamp((1 - u) / .06, 0, 1);
+      }
+    }
     for (var k = 0; k < 5; k++) {
       var y0 = this.yOf(2 * k);
       g.strokeStyle = "rgba(" + o.color + "," + clamp(o.alpha + this.res[k] * .45, 0, 1).toFixed(3) + ")";
       g.lineWidth = o.lineWidth * (1 + this.res[k] * .6);
       g.beginPath();
-      for (var j = 0; j <= P; j++) {
-        var u = j / P, x = x0 + u * span, y = y0 + this.offset(k, x, u, t);
+      for (j = 0; j <= P; j++) {
+        u = j / P;
+        var x = x0 + u * span, y = y0 + this.offset(k, x, u, t);
+        if (mw && mw[j] > 0) y = y * (1 - mw[j]) + wy[j] * mw[j];
         if (j) g.lineTo(x, y); else g.moveTo(x, y);
       }
       g.stroke();

@@ -9,9 +9,11 @@ a custom domain.
 
 **Concept D · Fünf Linien** (`concepts/fuenf-linien/`) is the current direction. It combines
 Resonanz (sound and frequencies) with Clavier (drifting notes, repertoire on a staff), without the
-piano: her voice is the instrument. Her name sits on five staff lines; each line is a pitch
-(E4 G4 B4 D5 F5) and vibrates when she sings near it. The listening room has a prototype-only
-switch between four visualisations:
+piano: her voice is the instrument. Her name sits on five staff lines (E4 G4 B4 D5 F5). When a
+recording plays, the staff flows into a single line drawn from her voice: the strength of each
+overtone shapes the wave, the pitch sets its density, the loudness its height. It runs live in the
+browser via the Web Audio `AnalyserNode` (no server); the audio files only need to be served from
+the same site. The listening room has a prototype-only switch between four visualisations:
 
 | Visualisation | What it shows |
 | --- | --- |
