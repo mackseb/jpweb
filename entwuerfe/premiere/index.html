@@ -717,7 +717,7 @@ h1, h2, h3 { margin: 0; font-weight: 300; text-wrap: balance; }
     document.getElementById("bio0").textContent = I.L(S.bio[0]);
     document.getElementById("bio1").textContent = I.L(S.bio[1]);
     document.getElementById("hl").innerHTML = S.highlights.map(function (h) {
-      return "<dt>" + esc(h.year) + "</dt><dd>" + esc(I.L(h.text)) + "</dd>";
+      return "<dt>" + esc(I.L(h.label || h.year)) + "</dt><dd>" + esc(I.L(h.text)) + "</dd>";
     }).join("");
     var kit = document.getElementById("kit");
     kit.innerHTML = "";
