@@ -7,7 +7,8 @@ a custom domain.
 
 ## Status: concept round 2
 
-**Concept D · Fünf Linien** (`concepts/fuenf-linien/`) is the current direction. It combines
+**Concept D · Fünf Linien** is the chosen direction and is the homepage (`index.html`). It is
+online as a hidden preview (`noindex`) at https://mackseb.github.io/jpweb/ until the real content is in. It combines
 Resonanz (sound and frequencies) with Clavier (drifting notes, repertoire on a staff), without the
 piano: her voice is the instrument. Her name sits on five staff lines (E4 G4 B4 D5 F5). When a
 recording plays, the staff flows into a single line drawn from her voice: the strength of each
@@ -30,7 +31,7 @@ Round 1, kept for comparison: three prototypes with the same placeholder content
 | **B · Premiere** (`concepts/premiere/`) | Opera house; the page reads like a programme booklet | Curtain opens on load, follow-spot tracks the mouse, role marquee, acts light up while scrolling, curtain closes at the end |
 | **C · Resonanz** (`concepts/resonanz/`) | Her voice made visible | Hairline strings part around the cursor and vibrate live with the recording, kinetic name, sideways repertoire band |
 
-`index.html` is the chooser page that links to all concepts.
+The earlier concepts and the chooser page live under `entwuerfe/`.
 
 Except her name (Julia Planitz), all texts, dates, venues and press quotes are **placeholders**.
 Instead of her recordings, a synthesized demo melody plays (`concepts/shared/demo-audio.js`).
@@ -45,18 +46,18 @@ python3 -m http.server 8000
 ## Structure
 
 ```
-index.html                     concept chooser
-concepts/shared/content.js     all site content (DE/EN), shared by the concepts
-concepts/shared/i18n.js        DE/EN switch (data-i18n attributes, remembers the choice)
-concepts/shared/demo-audio.js  placeholder audio + analyser + current sung pitch
-concepts/shared/staff.js       five-line staff renderer and the four visualisations
-concepts/fuenf-linien/index.html  Concept D (round 2)
-concepts/clavier/index.html    Concept A
-concepts/premiere/index.html   Concept B
-concepts/resonanz/index.html   Concept C
+index.html                     the site (Concept D · Fünf Linien)
+assets/js/content.js           all site content (DE/EN), shared by every page
+assets/js/i18n.js              DE/EN switch (data-i18n attributes, remembers the choice)
+assets/js/demo-audio.js        placeholder audio + analyser + current sung pitch
+assets/js/staff.js             five-line staff renderer and the visualisations
+entwuerfe/index.html           concept chooser
+entwuerfe/clavier/index.html   Concept A
+entwuerfe/premiere/index.html  Concept B
+entwuerfe/resonanz/index.html  Concept C
 ```
 
-Content lives in one place: edit `concepts/shared/content.js` and every concept
+Content lives in one place: edit `assets/js/content.js` and every page
 updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
 
 ## Before going live (after a concept is chosen)
@@ -71,7 +72,9 @@ updates. Strings are either plain text or `{ de: "…", en: "…" }` pairs.
 - Videos: keep the click-to-load facade (no YouTube/Vimeo requests before a click).
 - Self-host the fonts instead of loading them from Google Fonts (GDPR).
 - Add Impressum and Datenschutzerklärung pages (mandatory in Germany).
-- Add Open Graph tags and a share image, so links look good in WhatsApp and email.
+- Add a share image (`og:image`), so links look good in WhatsApp and email.
+- Remove the preview notice and the `noindex` meta tag from `index.html` so search engines list the site.
+- Remove the visualisation switch in the listening room once one view is chosen.
 - Press kit: real PDF and ZIP downloads.
 
 ## GitHub Pages and custom domain

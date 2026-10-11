@@ -3,422 +3,742 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Julia Planitz Entwürfe</title>
-<meta name="description" content="Website-Entwürfe für die Sopranistin Julia Planitz, zum Vergleichen.">
+<title>Julia Planitz · Sopran</title>
+<meta name="description" content="Julia Planitz, Sopran: Oper, Konzert und Lied. Hörproben, Repertoire, Termine und Booking.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Julia Planitz · Sopran">
+<meta property="og:description" content="Oper, Konzert und Lied. Hörproben, Repertoire, Termine und Booking.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Schibsted+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Music&text=%F0%9D%84%9E%E2%99%AF&display=swap">
 <style>
-/* Layout: a single reading column; three concept entries, each a live miniature beside its description */
+/* Layout: a white gallery page; her name set on five staff lines that resonate with her voice, one black listening room, staves between the chapters */
 :root {
-  --bg: #f6f6f3;
-  --fg: #121214;
-  --muted: #5e5e63;
-  --rule: rgba(18, 18, 20, .14);
-  --card: #ffffff;
-  --felt: #7a1d29;
+  --paper: #fafaf8;
+  --ink: #0c0c0c;
+  --graphite: #5b5b5f;
+  --hair: rgba(12, 12, 12, .14);
+  --night-fg: #f3f3f0;
+  --night-dim: #9d9da1;
+  --night-hair: rgba(243, 243, 240, .16);
+
   --f-display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
-  --f-body: "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0e0e10; --fg: #f1f1ee; --muted: #a2a2a8; --rule: rgba(241, 241, 238, .14); --card: #17171a; --felt: #c45a69;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0e0e10; --fg: #f1f1ee; --muted: #a2a2a8; --rule: rgba(241, 241, 238, .14); --card: #17171a; --felt: #c45a69;
-  color-scheme: dark;
+  --f-text: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --measure: 62ch;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 300 1.0625rem/1.65 var(--f-body); -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--f-text);
+  -webkit-font-smoothing: antialiased;
+}
+[hidden] { display: none !important; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
-.page { max-width: 1080px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 28px 80px; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.wrap { max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+.night { background: var(--ink); color: var(--night-fg); --muted: var(--night-dim); --rule: var(--night-hair); }
+.day { --muted: var(--graphite); --rule: var(--hair); }
+.staff-c { display: block; width: 100%; height: 100%; }
 
-.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: clamp(48px, 8vw, 88px); }
-.label { font: 500 .7rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0; }
-.lang { display: flex; }
-.lang button { background: none; border: 1px solid var(--rule); padding: .45em .8em; cursor: pointer; font: 500 .72rem/1 var(--f-body); letter-spacing: .1em; }
-.lang button + button { border-left: 0; }
-.lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.label { font: 600 .7rem/1.3 var(--f-text); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--f-display); font-weight: 400; text-wrap: balance; }
+h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; letter-spacing: -.02em; font-variation-settings: "opsz" 96; }
+.proto { font-size: .85rem; color: var(--muted); max-width: var(--measure); margin: 0; }
+.proto b { font-weight: 600; font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--rule); padding: .2em .55em; margin-right: .55em; white-space: nowrap; }
+.sec { padding-block: clamp(64px, 10vw, 140px); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px 40px; margin-bottom: clamp(36px, 6vw, 72px); }
+.sec-head .lede { max-width: 40ch; margin: 0; color: var(--muted); }
 
-h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; }
-h1 { font-size: clamp(3rem, 8vw, 5.6rem); line-height: .98; letter-spacing: -.02em; font-style: italic; }
-.intro { display: grid; gap: 20px; margin-bottom: clamp(48px, 7vw, 80px); }
-.intro p { margin: 0; max-width: 60ch; font-size: 1.15rem; }
-.intro .note { font-size: .95rem; color: var(--muted); }
-
-.concepts { display: grid; gap: 0; border-top: 1px solid var(--fg); }
-.concept {
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px clamp(28px, 5vw, 64px);
-  padding-block: clamp(32px, 5vw, 52px); border-bottom: 1px solid var(--rule); align-items: start;
+/* Top bar */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 40;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--gutter) 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font: 500 .8rem/1 var(--f-text); border-bottom: 1px solid transparent; transition: background .3s, border-color .3s;
 }
-.concept .pv { position: relative; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; border: 1px solid var(--rule); text-decoration: none; display: block; }
-.c-body { display: grid; gap: 14px; min-width: 0; }
-.c-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-.c-letter { font: 500 .72rem/1 var(--f-body); letter-spacing: .18em; color: var(--muted); }
-.c-head h2 { font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1; }
-.mood { margin: 0; font: italic 400 1.25rem/1.4 var(--f-display); }
-.c-body dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 18px; margin: 4px 0 6px; }
-.c-body dt { font: 500 .68rem/2 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-.c-body dd { margin: 0; }
-.open {
-  justify-self: start; display: inline-flex; gap: .7em; align-items: center; text-decoration: none;
-  padding: .9em 1.4em; border: 1px solid var(--fg); background: var(--fg); color: var(--bg);
-  font: 500 .74rem/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase; transition: background .2s, color .2s;
+.topbar.solid { background: var(--paper); border-color: var(--hair); }
+.topbar a { text-decoration: none; }
+.brand { font: italic 400 1.25rem/1 var(--f-display); letter-spacing: -.01em; }
+.nav { display: flex; gap: 26px; }
+.nav a { letter-spacing: .06em; position: relative; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+.nav a:hover::after { transform: scaleX(1); }
+.tools { display: flex; gap: 4px; }
+.chip { background: none; border: 1px solid var(--hair); padding: .5em .75em; cursor: pointer; font: 600 .7rem/1 var(--f-text); letter-spacing: .1em; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+@media (max-width: 900px) { .nav { display: none; } }
+
+/* Hero: the name sits on five staff lines */
+.hero { position: relative; overflow: hidden; min-height: clamp(600px, 100svh, 980px); display: grid; align-content: end; padding-block: 110px clamp(28px, 4vw, 48px); }
+.hero > .staff-c { position: absolute; inset: 0; }
+.hero .wrap { position: relative; width: 100%; display: grid; gap: clamp(28px, 5vw, 64px); pointer-events: none; }
+.hero .wrap a, .hero .wrap button { pointer-events: auto; }
+/* preview notice: sits above the hero content without pushing it down */
+.preview {
+  position: absolute; z-index: 1; top: calc(env(safe-area-inset-top, 0px) + 68px);
+  left: max(var(--gutter), calc((100% - 1280px) / 2 + var(--gutter))); right: var(--gutter);
+  width: fit-content; margin: 0; font-size: .78rem; color: var(--graphite); background: var(--paper);
+  border: 1px solid var(--hair); padding: .35em .8em;
 }
-.open:hover { background: transparent; color: var(--fg); }
-@media (max-width: 760px) { .concept { grid-template-columns: 1fr; } .c-body dl { grid-template-columns: 1fr; gap: 0 0; } .c-body dd { margin-bottom: 8px; } }
+.hero-top { justify-self: start; margin-bottom: clamp(20px, 5vw, 48px); }
+@media (max-width: 760px) { .hero { min-height: 0; padding-top: 150px; } }
+.name { font-size: clamp(4.4rem, 23vw, 17rem); line-height: .86; letter-spacing: -.035em; display: grid; font-variation-settings: "opsz" 96; }
+.name .l1 { font-style: italic; justify-self: start; will-change: transform; }
+.name .l2 { justify-self: end; will-change: transform; margin-right: -.02em; }
+.meta { display: grid; grid-template-columns: minmax(0, 1.2fr) auto; gap: 20px 40px; align-items: end; border-top: 1px solid var(--ink); padding-top: 18px; }
+.meta .claim { margin: 0; max-width: 42ch; }
+.meta .hint { margin: 6px 0 0; font-size: .82rem; color: var(--graphite); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.btn {
+  display: inline-flex; align-items: center; gap: .7em; text-decoration: none; cursor: pointer;
+  padding: .95em 1.4em; border: 1px solid currentColor; background: transparent;
+  font: 600 .74rem/1 var(--f-text); letter-spacing: .14em; text-transform: uppercase; transition: background .25s, color .25s;
+}
+.btn.solid, .btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.solid:hover { background: transparent; color: var(--ink); }
+.night .btn.solid, .night .btn:hover { background: var(--night-fg); color: var(--ink); border-color: var(--night-fg); }
+.night .btn.solid:hover { background: transparent; color: var(--night-fg); }
+.btn .ico { width: 9px; height: 10px; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.btn.on .ico { clip-path: none; width: 9px; height: 9px; }
+@media (max-width: 760px) { .meta { grid-template-columns: 1fr; } .actions { justify-content: flex-start; } }
 
-/* Miniatures: each shows the concept's moving idea in black and white */
-.pv-clavier { background: #0b0b0c; display: grid; align-content: end; padding: 0 10% 12%; }
-.pv-clavier .name { color: #fbfbf8; font: 400 clamp(1.4rem, 3.4vw, 2.2rem)/1 "Libre Caslon Display", var(--f-display); margin-bottom: 16%; }
-.mini-kb { position: relative; display: flex; height: 44%; border-top: 3px solid #7a1d29; }
-.mini-kb i { flex: 1; background: #fbfbf8; border-left: 1px solid #c9c8c2; border-radius: 0 0 4px 4px; box-shadow: inset 0 -6px 0 #e3e2dc; animation: press 3.2s infinite; animation-delay: calc(var(--k) * .16s); }
-.mini-kb i:first-child { border-left: 0; }
-.mini-kb b { position: absolute; top: 0; width: 8%; height: 58%; background: #111; border-radius: 0 0 3px 3px; transform: translateX(-50%); }
-@keyframes press { 0%, 20%, 100% { box-shadow: inset 0 -6px 0 #e3e2dc; background: #fbfbf8; } 8% { box-shadow: inset 0 -2px 0 #d6d5cf; background: #ecebe6; } }
+/* Listening room with the visualisation lab */
+.room { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: stretch; margin-bottom: 18px; }
+.field { border: 1px solid var(--rule); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 480px; min-width: 0; }
+.lab { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--rule); }
+.lab button {
+  flex: 1 1 auto; background: none; border: 0; border-right: 1px solid var(--rule); padding: 12px 14px; cursor: pointer;
+  font: 600 .66rem/1.2 var(--f-text); letter-spacing: .16em; text-transform: uppercase; color: var(--night-dim); transition: color .2s, background .2s;
+}
+.lab button:last-child { border-right: 0; }
+.lab button:hover { color: var(--night-fg); }
+.lab button[aria-selected="true"] { color: var(--ink); background: var(--night-fg); }
+.canvas-box { position: relative; min-height: 300px; }
+.canvas-box .staff-c { position: absolute; inset: 0; }
+.now { display: grid; gap: 2px; padding: 14px 18px 16px; border-top: 1px solid var(--rule); }
+.now .t { font: italic 400 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); }
+.now .time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+.lab-cap { margin: 0 0 clamp(48px, 7vw, 88px); color: var(--night-dim); max-width: 70ch; font-size: .95rem; min-height: 3em; }
+.lab-cap b { color: var(--night-fg); font-weight: 600; }
+.tracklist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); display: grid; align-content: start; }
+.trk { border-bottom: 1px solid var(--rule); }
+.trk button { width: 100%; text-align: left; background: none; border: 0; cursor: pointer; padding: 22px 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; position: relative; }
+.trk .c { grid-column: 1 / -1; }
+.trk .ti { font: italic 400 clamp(1.5rem, 2.4vw, 2rem)/1.1 var(--f-display); transition: transform .35s; }
+.trk button:hover .ti, .trk.on .ti { transform: translateX(8px); }
+.trk .w { color: var(--muted); font-size: .95rem; }
+.trk .d { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .9rem; align-self: end; }
+.trk .bar { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--night-fg); }
+@media (max-width: 860px) { .room { grid-template-columns: 1fr; } .field { min-height: 420px; } }
+.videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 28px; margin-bottom: 30px; }
+.video { margin: 0; display: grid; gap: 12px; }
+.v-poster { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 100%; padding: 0; cursor: pointer; overflow: hidden; border: 1px solid var(--rule); background: linear-gradient(115deg, #232325, #0e0e0f 60%); display: grid; place-items: center; }
+.v-poster::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 41px; transform: translateY(-50%); background: repeating-linear-gradient(180deg, rgba(243, 243, 240, .14) 0 1px, transparent 1px 10px); }
+.v-play { position: relative; width: 70px; height: 70px; border-radius: 50%; background: var(--night-fg); display: grid; place-items: center; transition: transform .3s; }
+.v-play::before { content: ""; width: 14px; height: 17px; background: var(--ink); clip-path: polygon(0 0, 100% 50%, 0 100%); margin-left: 4px; }
+.v-poster:hover .v-play { transform: scale(1.08); }
+.v-msg { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 20px; background: rgba(12, 12, 12, .93); }
+.v-title { margin: 0; font: italic 400 1.5rem/1.2 var(--f-display); }
+.v-meta { margin: 0; color: var(--muted); font-size: .95rem; }
 
-.pv-premiere { background: radial-gradient(60% 30% at 50% 100%, rgba(243, 239, 230, .14), transparent 70%), #060606; }
-.pv-premiere .arch { position: absolute; left: 50%; top: 16%; width: 30%; aspect-ratio: 3 / 4; transform: translateX(-50%); border-radius: 999px 999px 0 0; background: radial-gradient(30% 20% at 50% 28%, rgba(255, 250, 240, .5), transparent 75%), linear-gradient(180deg, #2c2c2d, #111); }
-.pv-premiere .bill { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: #f3efe6; font: 400 clamp(.9rem, 2.2vw, 1.3rem)/1 "Italiana", var(--f-display); letter-spacing: .3em; text-transform: uppercase; }
-.pv-premiere .cur { position: absolute; top: 0; bottom: 0; width: 51%; background: repeating-linear-gradient(90deg, #09090a 0, #1e1d1f 2.4%, #3b3a3d 3.8%, #1e1d1f 5.2%, #09090a 7.4%); animation: curtain 7s cubic-bezier(.66, 0, .22, 1) infinite; }
-.pv-premiere .cur.l { left: 0; transform-origin: left; }
-.pv-premiere .cur.r { right: 0; transform-origin: right; }
-.pv-premiere .val { position: absolute; left: 0; right: 0; top: 0; height: 10%; background: repeating-linear-gradient(90deg, #09090a 0 4px, #1e1d1f 4px 12px, #3b3a3d 12px 15px, #1e1d1f 15px 22px); }
-@keyframes curtain { 0%, 8% { transform: scaleX(1); } 38%, 78% { transform: scaleX(.13); } 100% { transform: scaleX(1); } }
+/* Staff dividers between chapters */
+.divider { height: 84px; margin-block: clamp(8px, 2vw, 24px); }
 
-.round-label { margin: 0 0 14px; }
-.round + .round-label { margin-top: clamp(40px, 6vw, 64px); }
-.round .concepts { border-top-width: 2px; }
-.pv-linien { background: #fafaf8; }
-.pv-linien canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pv-linien .nm { position: absolute; left: 8%; right: 8%; top: 10%; color: #0c0c0c; font: italic 400 clamp(2rem, 5.4vw, 3.4rem)/.86 var(--f-display); letter-spacing: -.03em; display: grid; }
-.pv-linien .nm span:last-child { justify-self: end; font-style: normal; }
-.pv-resonanz { background: #fafaf8; }
-.pv-resonanz canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pv-resonanz .nm { position: absolute; left: 8%; right: 8%; bottom: 10%; color: #0c0c0c; font: italic 400 clamp(1.8rem, 5vw, 3rem)/.85 var(--f-display); letter-spacing: -.03em; display: grid; }
-.pv-resonanz .nm span:last-child { justify-self: end; font-style: normal; }
+/* Vita split */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.photo {
+  position: sticky; top: 90px; aspect-ratio: 4 / 5; max-width: 100%;
+  background: radial-gradient(26% 20% at 46% 30%, rgba(255, 255, 255, .75), transparent 72%), linear-gradient(160deg, #d9d9d6, #a9a9a6 55%, #7b7b79);
+  clip-path: inset(var(--clip, 0%) 0 0 0); display: grid; place-items: end start; padding: 16px;
+}
+.photo .label { color: var(--ink); }
+.vita-text { display: grid; gap: 28px; min-width: 0; }
+.vita-text .lead { font: 400 clamp(1.5rem, 2.6vw, 2.2rem)/1.3 var(--f-display); margin: 0; font-variation-settings: "opsz" 40; }
+.vita-text p { margin: 0; max-width: var(--measure); }
+.hl { margin: 0; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); border-top: 1px solid var(--ink); }
+.hl dt, .hl dd { padding: 12px 0; border-bottom: 1px solid var(--hair); margin: 0; }
+.hl dt { font-variant-numeric: tabular-nums; color: var(--graphite); }
+.kit { display: grid; gap: 12px; }
+.kit h3 { font: 600 .7rem/1.3 var(--f-text); letter-spacing: .2em; text-transform: uppercase; color: var(--graphite); }
+.kit ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.kit button { background: none; border: 1px solid var(--ink); border-radius: 999px; padding: .6em 1.1em; cursor: pointer; font-size: .9rem; transition: background .2s, color .2s; }
+.kit button:hover { background: var(--ink); color: var(--paper); }
+.kit-msg { min-height: 1.5em; margin: 0; font-size: .9rem; color: var(--graphite); }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .photo { position: relative; top: 0; max-width: 440px; } }
 
-.shared, .steps, .tips { display: grid; gap: 16px; padding-top: clamp(40px, 6vw, 64px); }
-.shared h2, .steps h2, .tips h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); font-style: italic; }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 0 48px; }
-ul.clean { list-style: none; margin: 0; padding: 0; }
-ul.clean li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
-ol.steps-list { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 0; }
-ol.steps-list li { counter-increment: s; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); padding: 12px 0; border-bottom: 1px solid var(--rule); }
-ol.steps-list li::before { content: counter(s); font: italic 400 1.3rem/1.2 var(--f-display); color: var(--felt); }
-.foot { margin-top: 56px; color: var(--muted); font-size: .9rem; }
+/* Repertoire on the staff */
+.rep-group { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px clamp(24px, 5vw, 72px); padding-block: 34px; border-top: 1px solid var(--hair); align-items: start; }
+.rep-head { display: grid; gap: 14px; min-width: 0; }
+.rep-head h3 { font: italic 400 clamp(1.7rem, 2.8vw, 2.3rem)/1.1 var(--f-display); }
+.score { height: 120px; }
+.rep-list { list-style: none; margin: 0; padding: 0; columns: 2 220px; column-gap: 32px; }
+.rep-list li { break-inside: avoid; padding: 10px 0 10px 14px; border-left: 2px solid transparent; transition: border-color .2s, transform .2s; }
+.rep-list li.on { border-left-color: var(--ink); transform: translateX(4px); }
+.r-main { display: block; font: italic 400 1.35rem/1.2 var(--f-display); }
+.r-sub { display: block; color: var(--graphite); font-size: .92rem; }
+@media (max-width: 760px) { .rep-group { grid-template-columns: 1fr; } }
+
+/* Press */
+.press { display: grid; gap: clamp(48px, 7vw, 90px); overflow: hidden; }
+.pq { margin: 0; display: grid; gap: 16px; will-change: transform; }
+.pq:nth-child(even) { justify-items: end; text-align: right; }
+.pq blockquote { margin: 0; font: italic 400 clamp(1.9rem, 4.6vw, 4rem)/1.12 var(--f-display); max-width: 22ch; letter-spacing: -.01em; }
+.pq figcaption { font: 600 .7rem/1.3 var(--f-text); letter-spacing: .2em; text-transform: uppercase; color: var(--graphite); }
+
+/* Dates */
+.dates { list-style: none; margin: 0 0 48px; padding: 0; border-top: 1px solid var(--ink); }
+.dt { display: grid; grid-template-columns: 9rem minmax(0, 1.4fr) minmax(0, 1fr); gap: 6px 32px; align-items: baseline; padding: 22px 12px; border-bottom: 1px solid var(--hair); transition: background .25s, color .25s; }
+.dt:hover { background: var(--ink); color: var(--paper); }
+.dt time { font: 400 1.6rem/1 var(--f-display); font-variant-numeric: tabular-nums lining-nums; }
+.dt time small { display: block; font: 500 .75rem/1.6 var(--f-text); letter-spacing: .1em; opacity: .6; }
+.dt .wk { margin: 0; font: italic 400 clamp(1.3rem, 4.6vw, 1.6rem)/1.15 var(--f-display); overflow-wrap: anywhere; hyphens: auto; }
+.dt .de { margin: 0; opacity: .65; }
+.dt .ve { margin: 0; text-align: right; }
+@media (max-width: 760px) { .dt { grid-template-columns: 5.6rem minmax(0, 1fr); gap: 6px 16px; padding-inline: 0; } .dt .ve { grid-column: 2; text-align: left; } }
+.past { display: grid; gap: 10px; }
+.past p:last-child { margin: 0; font: 400 1.25rem/1.6 var(--f-display); max-width: 70ch; }
+
+/* Contact */
+.contact { position: relative; overflow: hidden; }
+.contact > .staff-c { position: absolute; left: 0; right: 0; top: 0; height: 62%; }
+.contact .wrap { position: relative; display: grid; gap: 26px; pointer-events: none; }
+.contact .wrap a, .contact .wrap button, .contact .wrap .mail { pointer-events: auto; }
+.contact .word { font: italic 400 clamp(4rem, 17vw, 15rem)/.85 var(--f-display); letter-spacing: -.04em; font-variation-settings: "opsz" 96; }
+.contact .lede { margin: 0; color: var(--night-dim); max-width: 46ch; }
+.mail { font: 400 clamp(1.6rem, 5vw, 3.4rem)/1.1 var(--f-display); overflow-wrap: anywhere; user-select: all; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 24px; margin: 0; }
+.contact dt { font: 600 .7rem/2 var(--f-text); letter-spacing: .2em; text-transform: uppercase; color: var(--night-dim); }
+.contact dd { margin: 0; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 28px 20px; border-top: 1px solid var(--night-hair); color: var(--night-dim); font-size: .9rem; }
+.foot nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.foot a { text-decoration: none; }
+
+/* Mini player: a tiny staff with the melody trace */
+.mini {
+  position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); z-index: 45;
+  transform: translate(-50%, 160%); transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+  display: flex; align-items: center; gap: 14px; max-width: calc(100% - 2 * var(--gutter));
+  background: var(--ink); color: var(--night-fg); padding: 8px 8px 8px 16px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+.mini.show { transform: translate(-50%, 0); }
+.mini .ms { width: 92px; height: 34px; flex: none; }
+.mini .t { font: italic 400 1.05rem/1.2 var(--f-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.mini button { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--night-fg); cursor: pointer; display: grid; place-items: center; }
+.mini button::before { content: ""; width: 10px; height: 10px; background: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .pv-premiere .cur { transform: scaleX(.13); }
+  .photo { clip-path: none; }
 }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Libre+Caslon+Display&display=swap">
 </head>
-<body>
-<div class="page">
-  <div class="top">
-    <p class="label" data-i18n="kicker">Website für Julia Planitz, Sopran</p>
-    <div class="lang" role="group" aria-label="Sprache / Language">
-      <button type="button" data-lang="de">DE</button>
-      <button type="button" data-lang="en">EN</button>
-    </div>
+<body class="day">
+
+<div class="topbar" id="topbar">
+  <a class="brand" href="#top">Julia Planitz</a>
+  <nav class="nav" aria-label="Navigation">
+    <a href="#hoeren" data-i18n="navListen">Hören</a>
+    <a href="#vita" data-i18n="navVita">Vita</a>
+    <a href="#repertoire" data-i18n="navRep">Repertoire</a>
+    <a href="#presse" data-i18n="navPress">Presse</a>
+    <a href="#termine" data-i18n="navDates">Termine</a>
+    <a href="#kontakt" data-i18n="navContact">Kontakt</a>
+  </nav>
+  <div class="tools">
+    <button class="chip" type="button" data-lang="de">DE</button>
+    <button class="chip" type="button" data-lang="en">EN</button>
   </div>
-
-  <header class="intro">
-    <h1 data-i18n="h1">Entwürfe</h1>
-    <p data-i18n="intro1"></p>
-    <p class="note" data-i18n="intro2"></p>
-  </header>
-
-  <p class="label round-label" data-i18n="round2">Runde 2 · aktueller Stand</p>
-  <section class="round" aria-label="Runde 2">
-    <div class="concepts">
-      <article class="concept">
-        <a class="pv pv-linien" href="concepts/fuenf-linien/index.html" aria-hidden="true" tabindex="-1">
-          <canvas id="pvLinien"></canvas>
-          <div class="nm"><span>Julia</span><span>Planitz</span></div>
-        </a>
-        <div class="c-body">
-          <div class="c-head"><span class="c-letter" data-i18n="dLetter">Entwurf D</span><h2 data-i18n="dName">Fünf Linien</h2></div>
-          <p class="mood" data-i18n="dMood"></p>
-          <dl>
-            <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="dMoves"></dd>
-            <dt data-i18n="dFromLabel">Kombiniert</dt><dd data-i18n="dFrom"></dd>
-            <dt data-i18n="dLabLabel">Zum Vergleich</dt><dd data-i18n="dLab"></dd>
-          </dl>
-          <a class="open" href="concepts/fuenf-linien/index.html"><span data-i18n="openD">Fünf Linien öffnen</span> →</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <p class="label round-label" data-i18n="round1">Runde 1</p>
-  <section class="concepts" aria-label="Runde 1">
-    <article class="concept">
-      <a class="pv pv-clavier" href="concepts/clavier/index.html" aria-hidden="true" tabindex="-1">
-        <div class="name">Julia Planitz</div>
-        <div class="mini-kb">
-          <i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i>
-          <b style="left:14.28%"></b><b style="left:28.57%"></b><b style="left:57.14%"></b><b style="left:71.43%"></b><b style="left:85.71%"></b>
-        </div>
-      </a>
-      <div class="c-body">
-        <div class="c-head"><span class="c-letter" data-i18n="aLetter">Entwurf A</span><h2>Clavier</h2></div>
-        <p class="mood" data-i18n="aMood"></p>
-        <dl>
-          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="aMoves"></dd>
-          <dt data-i18n="strength">Stärke</dt><dd data-i18n="aPlus"></dd>
-          <dt data-i18n="watch">Achtung</dt><dd data-i18n="aMinus"></dd>
-        </dl>
-        <a class="open" href="concepts/clavier/index.html"><span data-i18n="openA">Clavier öffnen</span> →</a>
-      </div>
-    </article>
-
-    <article class="concept">
-      <a class="pv pv-premiere" href="concepts/premiere/index.html" aria-hidden="true" tabindex="-1">
-        <div class="arch"></div>
-        <div class="bill">Julia Planitz</div>
-        <div class="cur l"></div><div class="cur r"></div><div class="val"></div>
-      </a>
-      <div class="c-body">
-        <div class="c-head"><span class="c-letter" data-i18n="bLetter">Entwurf B</span><h2>Premiere</h2></div>
-        <p class="mood" data-i18n="bMood"></p>
-        <dl>
-          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="bMoves"></dd>
-          <dt data-i18n="strength">Stärke</dt><dd data-i18n="bPlus"></dd>
-          <dt data-i18n="watch">Achtung</dt><dd data-i18n="bMinus"></dd>
-        </dl>
-        <a class="open" href="concepts/premiere/index.html"><span data-i18n="openB">Premiere öffnen</span> →</a>
-      </div>
-    </article>
-
-    <article class="concept">
-      <a class="pv pv-resonanz" href="concepts/resonanz/index.html" aria-hidden="true" tabindex="-1">
-        <canvas id="pvStrings"></canvas>
-        <div class="nm"><span>Julia</span><span>Planitz</span></div>
-      </a>
-      <div class="c-body">
-        <div class="c-head"><span class="c-letter" data-i18n="cLetter">Entwurf C</span><h2>Resonanz</h2></div>
-        <p class="mood" data-i18n="cMood"></p>
-        <dl>
-          <dt data-i18n="moves">Was sich bewegt</dt><dd data-i18n="cMoves"></dd>
-          <dt data-i18n="strength">Stärke</dt><dd data-i18n="cPlus"></dd>
-          <dt data-i18n="watch">Achtung</dt><dd data-i18n="cMinus"></dd>
-        </dl>
-        <a class="open" href="concepts/resonanz/index.html"><span data-i18n="openC">Resonanz öffnen</span> →</a>
-      </div>
-    </article>
-  </section>
-
-  <section class="tips">
-    <h2 data-i18n="tipsTitle">So vergleichen Sie</h2>
-    <ol class="steps-list">
-      <li data-i18n="tip1"></li>
-      <li data-i18n="tip2"></li>
-      <li data-i18n="tip3"></li>
-      <li data-i18n="tip4"></li>
-    </ol>
-  </section>
-
-  <div class="grid2">
-    <section class="shared">
-      <h2 data-i18n="sharedTitle">In allen drei Entwürfen</h2>
-      <ul class="clean">
-        <li data-i18n="s1"></li><li data-i18n="s2"></li><li data-i18n="s3"></li><li data-i18n="s4"></li><li data-i18n="s5"></li><li data-i18n="s6"></li>
-      </ul>
-    </section>
-    <section class="steps">
-      <h2 data-i18n="nextTitle">Danach</h2>
-      <ol class="steps-list">
-        <li data-i18n="n1"></li><li data-i18n="n2"></li><li data-i18n="n3"></li><li data-i18n="n4"></li>
-      </ol>
-    </section>
-  </div>
-
-  <p class="foot" data-i18n="foot"></p>
 </div>
 
-<script src="concepts/shared/i18n.js"></script>
+<header class="hero" id="top">
+  <canvas class="staff-c" id="heroStaff" aria-hidden="true"></canvas>
+  <p class="preview" data-i18n="preview">Vorschau · Texte, Termine und Zitate sind noch Platzhalter.</p>
+  <div class="wrap">
+    <p class="label hero-top"><span data-site="voice"></span> — <span data-site="genres"></span></p>
+    <h1 class="name" id="name"><span class="l1">Julia</span><span class="l2">Planitz</span></h1>
+    <div class="meta">
+      <div>
+        <p class="claim" data-site="claim"></p>
+        <p class="hint" data-i18n="heroHint"></p>
+      </div>
+      <div class="actions">
+        <button class="btn solid" id="heroPlay" type="button"><span class="ico"></span><span data-i18n="heroListen">Stimme hören</span></button>
+        <a class="btn" href="#kontakt" data-i18n="ctaBook">Booking anfragen</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="sec night" id="hoeren">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 data-i18n="listenTitle">Hören</h2>
+        <p class="lede" data-i18n="listenLede"></p>
+      </header>
+      <div class="room">
+        <div class="field" id="field">
+          <div class="lab" role="tablist" data-i18n-aria="labAria">
+            <button type="button" role="tab" data-mode="lines" data-i18n="labLines">Notenlinien</button>
+            <button type="button" role="tab" data-mode="trace" data-i18n="labTrace">Melodiespur</button>
+            <button type="button" role="tab" data-mode="spectrogram" data-i18n="labSpec">Klangschrift</button>
+            <button type="button" role="tab" data-mode="overtones" data-i18n="labOver">Obertöne</button>
+          </div>
+          <div class="canvas-box"><canvas class="staff-c" id="roomStaff" aria-hidden="true"></canvas></div>
+          <div class="now" aria-live="polite">
+            <span class="label" id="nowLabel"></span>
+            <span class="t" id="nowTitle"></span>
+            <span class="time" id="nowTime"></span>
+          </div>
+        </div>
+        <ol class="tracklist" id="tracks"></ol>
+      </div>
+      <p class="lab-cap" id="labCap"></p>
+      <header class="sec-head" style="margin-bottom:28px">
+        <h3 class="label" data-i18n="watchTitle" style="font-family:var(--f-text)">Sehen</h3>
+      </header>
+      <div class="videos" id="videos"></div>
+      <p class="proto" data-i18n-html="protoMedia"></p>
+    </div>
+  </section>
+
+  <section class="sec day" id="vita">
+    <div class="wrap split">
+      <div class="photo" id="photo"><span class="label" data-i18n="portrait">Porträt</span></div>
+      <div class="vita-text">
+        <h2 data-i18n="vitaTitle">Vita</h2>
+        <p class="lead" id="bio0"></p>
+        <p id="bio1"></p>
+        <dl class="hl" id="hl"></dl>
+        <div class="kit">
+          <h3 data-i18n="kitTitle">Pressemappe</h3>
+          <ul id="kit"></ul>
+          <p class="kit-msg" id="kitMsg" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap divider"><canvas class="staff-c" data-divider aria-hidden="true"></canvas></div>
+
+  <section class="sec day" id="repertoire" style="padding-top:clamp(32px,5vw,64px)">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 data-i18n="repTitle">Repertoire</h2>
+        <p class="lede" data-i18n="repLede"></p>
+      </header>
+      <div id="rep"></div>
+      <p class="proto" style="margin-top:24px" data-i18n-html="protoRep"></p>
+    </div>
+  </section>
+
+  <div class="wrap divider"><canvas class="staff-c" data-divider aria-hidden="true"></canvas></div>
+
+  <section class="sec day" id="presse" style="padding-top:clamp(32px,5vw,64px)">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 data-i18n="pressTitle">Presse</h2>
+      </header>
+      <div class="press" id="press"></div>
+      <p class="proto" style="margin-top:48px" data-i18n-html="protoPress"></p>
+    </div>
+  </section>
+
+  <div class="wrap divider"><canvas class="staff-c" data-divider aria-hidden="true"></canvas></div>
+
+  <section class="sec day" id="termine" style="padding-top:clamp(32px,5vw,64px)">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 data-i18n="datesTitle">Termine</h2>
+      </header>
+      <ol class="dates" id="dates"></ol>
+      <div class="past">
+        <p class="label" data-i18n="pastLabel"></p>
+        <p id="past"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="sec night contact" id="kontakt" style="padding-bottom:0">
+  <canvas class="staff-c" id="footStaff" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="word" data-i18n="contactWord">Booking</span>
+    <p class="lede" data-site="bookingFor"></p>
+    <span class="mail" id="mail"></span>
+    <div class="row">
+      <a class="btn solid" id="mailto" href="#" data-i18n="write">E-Mail schreiben</a>
+      <button class="btn" id="copy" type="button" data-i18n="copy">E-Mail kopieren</button>
+    </div>
+    <dl>
+      <dt data-i18n="phoneLabel">Telefon</dt><dd id="phone"></dd>
+      <dt data-i18n="agencyLabel">Agentur</dt><dd data-site="agency"></dd>
+    </dl>
+    <div class="foot">
+      <span id="copyright"></span>
+      <nav><a href="#" data-i18n="imprint">Impressum</a><a href="#" data-i18n="privacy">Datenschutz</a><a href="entwuerfe/index.html" data-i18n="drafts">Entwürfe</a><a href="#top" data-i18n="toTop">Nach oben ↑</a></nav>
+    </div>
+    <p class="proto" style="padding-bottom:40px" data-i18n-html="protoLegal"></p>
+  </div>
+</footer>
+
+<div class="mini" id="mini" aria-hidden="true">
+  <canvas class="ms" id="miniStaff"></canvas>
+  <span class="t" id="miniTitle"></span>
+  <button type="button" id="miniStop" tabindex="-1" data-i18n-aria="pause"></button>
+</div>
+
+<script src="assets/js/content.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/demo-audio.js"></script>
+<script src="assets/js/staff.js"></script>
 <script>
 (function () {
-  window.I18N.init({
+  var S = window.SITE, I = window.I18N, A = window.DemoAudio, Staff = window.Staff;
+  var reduce = Staff.reduce;
+  var LABEL_FONT = '"Schibsted Grotesk", sans-serif', DISPLAY_FONT = '"Bodoni Moda", serif';
+
+  var DICT = {
     de: {
-      kicker: "Website für Julia Planitz, Sopran",
-      h1: "Entwürfe",
-      intro1: "Ein digitaler Auftritt, den sie an Agenturen, Opernhäuser und Veranstalter schicken kann. Runde 2 verbindet Resonanz und Clavier zu einem Entwurf, in dem ihre Stimme das Instrument ist. Die drei Entwürfe aus Runde 1 bleiben zum Vergleich.",
-      round2: "Gewählt · aktueller Stand", round1: "Runde 1",
-      dLetter: "Entwurf D", dName: "Fünf Linien", openD: "Fünf Linien öffnen",
-      dMood: "Die Stimme ist das Instrument: fünf Notenlinien machen sie sichtbar.",
-      dMoves: "Ihr Name steht auf fünf Notenlinien, die der Maus ausweichen. Beim Hören fließen sie zu einer einzigen Linie zusammen, die in den Obertönen ihrer Stimme schwingt: hohe Töne dichter, laute Töne höher. Zwischen den Kapiteln wandern Noten über Notensysteme.",
-      dFromLabel: "Kombiniert", dFrom: "Klang und Frequenzen aus Resonanz, wandernde Noten und Repertoire aus Clavier, ohne Klavier.",
-      dLabLabel: "Zum Vergleich", dLab: "Im Hörraum lassen sich vier Darstellungen umschalten: Notenlinien, Melodiespur, Klangschrift und Obertöne.",
-      intro2: "Name, Texte, Termine und Zitate sind Platzhalter. Statt ihrer Aufnahmen erklingt eine synthetische Demo-Melodie.",
-      moves: "Was sich bewegt", strength: "Stärke", watch: "Achtung",
-      aLetter: "Entwurf A", openA: "Clavier öffnen",
-      aMood: "Elegant und verspielt: Die Klaviatur ist die Navigation.",
-      aMoves: "Tasten senken sich beim Zeigen und können erklingen; ein Notensystem zeichnet sich zwischen den Kapiteln, Noten wandern darüber; die Taste des aktuellen Kapitels bleibt gedrückt; die Tastenleiste im Player läuft mit der Musik.",
-      aPlus: "Sofort einprägsam, ein eigener Wiedererkennungswert.",
-      aMinus: "Kann verspielt wirken, wenn man noch mehr Klavier-Motive ergänzt.",
-      bLetter: "Entwurf B", openB: "Premiere öffnen",
-      bMood: "Theatralisch: Vorhang auf, die Seite liest sich wie ein Programmheft.",
-      bMoves: "Der Vorhang öffnet sich beim Laden; ein Verfolger-Spot folgt der Maus; Partien laufen als Laufband durch; die Akte werden beim Scrollen beleuchtet; Pressezitate bekommen nacheinander das Licht; am Ende schließt sich der Vorhang.",
-      bPlus: "Die stärkste emotionale Wirkung, gut für Galas und Opernhäuser.",
-      bMinus: "Viel Schwarz; lebt von einem sehr guten Porträtfoto.",
-      cLetter: "Entwurf C", openC: "Resonanz öffnen",
-      cMood: "Modern und redaktionell: ihre Stimme wird sichtbar.",
-      cMoves: "Feine Saiten weichen dem Mauszeiger aus und schwingen live mit der Aufnahme; der Name verschiebt sich beim Scrollen; das Repertoire läuft als Band seitwärts; Porträt und Zitate gleiten ins Bild.",
-      cPlus: "Am eigenständigsten und zeitgemäßesten, wirkt wie ein Klassik-Label.",
-      cMinus: "Braucht gute Aufnahmen, denn die Hörproben stehen im Mittelpunkt.",
-      tipsTitle: "So vergleichen Sie",
-      tip1: "Öffnen Sie die Entwürfe auch auf dem Handy, denn dort sehen Veranstalter sie oft zuerst.",
-      tip2: "Fünf Linien: „Stimme hören“ drücken, dann im Hörraum zwischen den vier Darstellungen umschalten. Clavier: „♪ Klang“ einschalten und über die Tasten fahren. Premiere: Maus über die Bühne bewegen. Resonanz: „Stimme hören“ drücken.",
-      tip3: "Oben rechts lässt sich jede Seite zwischen Deutsch und Englisch umschalten.",
-      tip4: "Weitere Mischungen sind möglich, zum Beispiel der Vorhang aus Premiere als Auftakt.",
-      sharedTitle: "In allen drei Entwürfen",
-      s1: "Hörproben und Videos, die erst nach einem Klick von YouTube oder Vimeo laden",
-      s2: "Repertoire nach Oper, Konzert & Oratorium und Lied",
-      s3: "Kommende Termine und Spielorte",
-      s4: "Pressestimmen",
-      s5: "Vita mit Pressemappe zum Herunterladen",
-      s6: "Kontakt, Impressum und Datenschutz",
-      nextTitle: "Danach",
-      n1: "Eine der vier Darstellungen in Fünf Linien auswählen, oder zwei kombinieren.",
-      n2: "Material sammeln: Fotos, Aufnahmen (MP3), Video-Links, Vita, Zitate, Termine.",
-      n3: "Die echte Seite mit ihren Inhalten bauen, auf Deutsch und Englisch.",
-      n4: "Auf GitHub Pages veröffentlichen und die eigene Domain verbinden.",
-      foot: "Prototypen, Stand Entwurfsrunde 3."
+      preview: "Vorschau · Texte, Termine und Zitate sind noch Platzhalter.", drafts: "Entwürfe",
+      navListen: "Hören", navVita: "Vita", navRep: "Repertoire", navPress: "Presse", navDates: "Termine", navContact: "Kontakt",
+      heroListen: "Stimme hören", heroStop: "Anhalten", ctaBook: "Booking anfragen",
+      heroHint: "Die fünf Notenlinien folgen Ihrer Bewegung. Beim Hören fließen sie zu einer Linie zusammen, die in den Obertönen ihrer Stimme schwingt.",
+      listenTitle: "Hören", listenLede: "Wählen Sie eine Aufnahme. Oben im Feld lässt sich umschalten, wie ihre Stimme sichtbar wird.",
+      nowPlaying: "Es erklingt", idle: "Bereit", play: "Abspielen", pause: "Anhalten",
+      labAria: "Darstellung der Stimme",
+      labLines: "Notenlinien", labTrace: "Melodiespur", labSpec: "Klangschrift", labOver: "Obertöne",
+      capLines: "<b>Notenlinien.</b> Jede der fünf Linien ist ein Ton: e′ g′ h′ d″ f″. Eine Linie schwingt, wenn die Stimme in ihrer Nähe singt, so wandert die Melodie über das System.",
+      capTrace: "<b>Melodiespur.</b> Die Stimme schreibt ihre Melodie auf die Linien. Gehaltene Töne werden zu Noten, hohe Töne bekommen Hilfslinien.",
+      capSpec: "<b>Klangschrift.</b> Alle Frequenzen der Stimme als Gravur. Die Notenlinien liegen auf ihrer echten Tonhöhe, das Vibrato erscheint als Wellen in den Obertönen.",
+      capOver: "<b>Obertöne.</b> Grundton und Obertöne des gesungenen Tons. Das helle Band markiert den Sängerformanten, der eine Stimme über das Orchester trägt.",
+      formant: "Sängerformant",
+      watchTitle: "Sehen", videoMsg: "Hier startet das Video, geladen erst nach diesem Klick.",
+      protoMedia: "<b>Prototyp</b>Die Umschaltung zwischen vier Darstellungen dient nur dem Vergleich; im fertigen Auftritt bleibt eine. Es erklingt eine synthetische Demo-Melodie; mit ihren Aufnahmen folgen die Linien ihrer echten Stimme. Videos laden erst nach einem Klick.",
+      vitaTitle: "Vita", portrait: "Porträt", kitTitle: "Pressemappe", kitMsg: "Im fertigen Auftritt startet hier der Download.",
+      repTitle: "Repertoire", repLede: "Partien und Werke, die sie gesungen hat und kurzfristig anbieten kann.",
+      repOpera: "Oper", repConcert: "Konzert & Oratorium", repLied: "Lied",
+      protoRep: "<b>Prototyp</b>Beispiel-Repertoire. Zeigen Sie auf eine Partie oder eine Note: Die Linien geraten an dieser Stelle in Schwingung.",
+      pressTitle: "Presse", protoPress: "<b>Prototyp</b>Zitate und Quellen sind Platzhalter.",
+      datesTitle: "Termine", pastLabel: "Zuletzt zu Gast u. a.",
+      contactWord: "Booking", write: "E-Mail schreiben", copy: "E-Mail kopieren", copied: "Kopiert",
+      phoneLabel: "Telefon", agencyLabel: "Agentur", imprint: "Impressum", privacy: "Datenschutz", toTop: "Nach oben ↑",
+      protoLegal: "<b>Prototyp</b>Impressum und Datenschutzerklärung sind für den fertigen Auftritt Pflicht."
     },
     en: {
-      kicker: "Website for Julia Planitz, soprano",
-      h1: "Concepts",
-      intro1: "A digital calling card she can send to agencies, opera houses and promoters. Round 2 combines Resonanz and Clavier into one concept in which her voice is the instrument. The three round-1 concepts stay for comparison.",
-      round2: "Chosen · current", round1: "Round 1",
-      dLetter: "Concept D", dName: "Five Lines", openD: "Open Five Lines",
-      dMood: "The voice is the instrument: five staff lines make it visible.",
-      dMoves: "Her name sits on five staff lines that part around the mouse. While listening, they flow into a single line that vibrates with the overtones of her voice: denser for high notes, taller when she sings louder. Between chapters, notes drift across staves.",
-      dFromLabel: "Combines", dFrom: "Sound and frequencies from Resonanz, drifting notes and repertoire from Clavier, without the piano.",
-      dLabLabel: "To compare", dLab: "The listening room switches between four visualisations: staff lines, melody trace, engraved spectrum and overtones.",
-      intro2: "Name, texts, dates and quotes are placeholders. A synthesized demo melody stands in for her recordings.",
-      moves: "What moves", strength: "Strength", watch: "Watch out",
-      aLetter: "Concept A", openA: "Open Clavier",
-      aMood: "Elegant and playful: the keyboard is the navigation.",
-      aMoves: "Keys go down on hover and can sound; a music staff draws itself between chapters with notes drifting along it; the key of the current chapter stays held; the player's key strip follows the music.",
-      aPlus: "Instantly memorable, with a recognisable signature.",
-      aMinus: "Can tip into gimmicky if more piano motifs are added.",
-      bLetter: "Concept B", openB: "Open Premiere",
-      bMood: "Theatrical: the curtain rises and the page reads like a programme booklet.",
-      bMoves: "The curtain opens on load; a follow-spot tracks the mouse; roles run past as a marquee; acts light up as you scroll; press quotes take the light in turn; the curtain closes at the end.",
-      bPlus: "The strongest emotional pull, good for galas and opera houses.",
-      bMinus: "A lot of black; depends on one very good portrait photo.",
-      cLetter: "Concept C", openC: "Open Resonanz",
-      cMood: "Modern and editorial: her voice made visible.",
-      cMoves: "Fine strings part around the cursor and vibrate live with the recording; the name shifts as you scroll; the repertoire runs sideways as a band; portrait and quotes slide into view.",
-      cPlus: "The most distinctive and contemporary, with a classical-label feel.",
-      cMinus: "Needs good recordings, since listening is the centrepiece.",
-      tipsTitle: "How to compare",
-      tip1: "Open the concepts on a phone too, since that is often where promoters see them first.",
-      tip2: "Five Lines: press “Hear the voice”, then switch between the four visualisations in the listening room. Clavier: turn on “♪ Sound” and run across the keys. Premiere: move the mouse over the stage. Resonanz: press “Hear the voice”.",
-      tip3: "Each page switches between German and English at the top right.",
-      tip4: "Further mixes are possible, for example Premiere's curtain as an opening.",
-      sharedTitle: "In all three concepts",
-      s1: "Recordings and videos that load from YouTube or Vimeo only after a click",
-      s2: "Repertoire by opera, concert & oratorio, and song",
-      s3: "Upcoming dates and venues",
-      s4: "Press quotes",
-      s5: "Biography with a downloadable press kit",
-      s6: "Contact, legal notice and privacy policy",
-      nextTitle: "Next",
-      n1: "Pick one of the four visualisations in Five Lines, or combine two.",
-      n2: "Gather material: photos, recordings (MP3), video links, CV, quotes, dates.",
-      n3: "Build the real site with her content, in German and English.",
-      n4: "Publish on GitHub Pages and connect the custom domain.",
-      foot: "Prototypes, concept round 3."
+      preview: "Preview · texts, dates and quotes are still placeholders.", drafts: "Concepts",
+      navListen: "Listen", navVita: "About", navRep: "Repertoire", navPress: "Press", navDates: "Dates", navContact: "Contact",
+      heroListen: "Hear the voice", heroStop: "Stop", ctaBook: "Booking enquiry",
+      heroHint: "The five staff lines follow your movement. While you listen, they flow into one line that vibrates with the overtones of her voice.",
+      listenTitle: "Listen", listenLede: "Choose a recording. Switch at the top of the panel how her voice is made visible.",
+      nowPlaying: "Now playing", idle: "Ready", play: "Play", pause: "Stop",
+      labAria: "Voice visualisation",
+      labLines: "Staff lines", labTrace: "Melody trace", labSpec: "Engraved spectrum", labOver: "Overtones",
+      capLines: "<b>Staff lines.</b> Each of the five lines is a pitch: E4 G4 B4 D5 F5. A line vibrates when the voice sings near it, so the melody travels across the staff.",
+      capTrace: "<b>Melody trace.</b> The voice writes its melody onto the lines. Held notes become note heads, high notes get ledger lines.",
+      capSpec: "<b>Engraved spectrum.</b> Every frequency of the voice as an engraving. The staff lines sit at their true pitch; vibrato shows as waves in the overtones.",
+      capOver: "<b>Overtones.</b> The fundamental and overtones of the sung note. The light band marks the singer's formant, which carries a voice over an orchestra.",
+      formant: "Singer's formant",
+      watchTitle: "Watch", videoMsg: "The video starts here, loaded only after this click.",
+      protoMedia: "<b>Prototype</b>Switching between four visualisations is only for comparison; the finished site keeps one. A synthesized demo melody plays; with her recordings the lines follow her real voice. Videos load only after a click.",
+      vitaTitle: "About", portrait: "Portrait", kitTitle: "Press kit", kitMsg: "On the finished site, the download starts here.",
+      repTitle: "Repertoire", repLede: "Roles and works she has performed and can offer at short notice.",
+      repOpera: "Opera", repConcert: "Concert & oratorio", repLied: "Song",
+      protoRep: "<b>Prototype</b>Sample repertoire. Point at a role or a note: the lines start to vibrate at that spot.",
+      pressTitle: "Press", protoPress: "<b>Prototype</b>Quotes and sources are placeholders.",
+      datesTitle: "Dates", pastLabel: "Recent venues include",
+      contactWord: "Booking", write: "Write an email", copy: "Copy email", copied: "Copied",
+      phoneLabel: "Phone", agencyLabel: "Agency", imprint: "Legal notice", privacy: "Privacy", toTop: "Back to top ↑",
+      protoLegal: "<b>Prototype</b>A legal notice (Impressum) and privacy policy are mandatory for the finished site in Germany."
+    }
+  };
+
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+
+  /* ---------- staves ---------- */
+  var heroEl = document.getElementById("top"), nameEl = document.getElementById("name");
+  var hero = new Staff(document.getElementById("heroStaff"), {
+    host: heroEl, mouse: 42, sigma: 130, idle: 1.4, lineWidth: 1.2, alpha: .5, resonate: .35,
+    // while she sings, the staff flows into one line drawn from her overtones
+    merge: { from: .3, to: .56 }, waveHeight: 1.7,
+    // the staff spans the two lines of her name
+    layout: function (w, h) {
+      var c = heroEl.getBoundingClientRect(), r = nameEl.getBoundingClientRect();
+      var gap = clamp(r.height * .2, 18, 120);
+      return { gap: gap, mid: r.top - c.top + r.height * .54 };
     }
   });
 
-  // Concept C miniature: a few hairline strings with a travelling ripple
-  var c = document.getElementById("pvStrings"), g = c.getContext("2d");
-  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function size() {
-    var d = Math.min(2, window.devicePixelRatio || 1);
-    c.width = c.clientWidth * d; c.height = c.clientHeight * d; g.setTransform(d, 0, 0, d, 0, 0);
-  }
-  function draw(t) {
-    var w = c.clientWidth, h = c.clientHeight;
-    g.clearRect(0, 0, w, h);
-    g.strokeStyle = "rgba(12,12,12,.28)";
-    g.lineWidth = 1;
-    for (var i = 0; i < 16; i++) {
-      var y0 = h * .1 + h * .5 * i / 15, mid = Math.sin(Math.PI * i / 15);
-      g.beginPath();
-      for (var x = 0; x <= w; x += 4) {
-        var u = x / w, env = Math.exp(-Math.pow((u - .5 - .25 * Math.sin(t / 2400)) / .14, 2));
-        var y = y0 + env * mid * 9 * Math.sin(x * .07 - t * .008 + i);
-        if (x) g.lineTo(x, y); else g.moveTo(x, y);
-      }
-      g.stroke();
-    }
-    if (!still) requestAnimationFrame(draw);
-  }
-  size();
-  window.addEventListener("resize", size);
-  requestAnimationFrame(draw);
+  var room = new Staff(document.getElementById("roomStaff"), {
+    host: document.getElementById("field"), color: "243,243,240", alpha: .42, clef: true, clefX: 14, padL: 0,
+    resonate: 1.2, ripple: 5, mouse: 24, sigma: 70, labelFont: LABEL_FONT, displayFont: DISPLAY_FONT,
+    traceWidth: 2, penX: .8, speed: .09,
+    layout: function (w, h) { var gap = clamp(h * .075, 12, 30); return { gap: gap, mid: h * .52 }; }
+  });
 
-  // Concept D miniature: five lines, the nearest one resonating, a melody written onto them
-  var d = document.getElementById("pvLinien"), dg = d.getContext("2d");
-  var MEL = [2, 4, 7, 6, 5, 3, 4, 9, 8, 6, 5, 7], NOTE = 650, SPEED = .06;
-  function stepAt(time) {
-    var i = Math.floor(time / NOTE), f = time / NOTE - i;
-    var a = MEL[((i - 1) % MEL.length + MEL.length) % MEL.length], b = MEL[i % MEL.length];
-    var s = f < .1 ? a + (b - a) * (f / .1) : b;
-    return s + Math.sin(time * .034) * .12 * Math.min(1, f * 3);
+  document.querySelectorAll("[data-divider]").forEach(function (c, i) {
+    new Staff(c, { gap: 9, mid: .5, clef: true, clefX: 0, drift: 4 + (i % 2), alpha: .32, resonate: 1.4, idle: .5, mouse: 10, sigma: 60, host: c.parentNode });
+  });
+
+  new Staff(document.getElementById("footStaff"), {
+    host: document.getElementById("kontakt"), color: "243,243,240", alpha: .2, gap: 24, mid: .42,
+    drift: 5, resonate: 1, mouse: 34, sigma: 110, idle: 1.2
+  });
+
+  var mini = new Staff(document.getElementById("miniStaff"), {
+    color: "243,243,240", alpha: .45, gap: 4.4, mid: .56, trace: true, traceWidth: 1.4, penX: .86, speed: .028, idle: 0, resonate: .6
+  });
+
+  /* ---------- lab ---------- */
+  var LAB = {
+    lines: { o: { mode: "lines", trace: false, penLabel: false }, cap: "capLines" },
+    trace: { o: { mode: "lines", trace: true, penLabel: true }, cap: "capTrace" },
+    spectrogram: { o: { mode: "spectrogram" }, cap: "capSpec" },
+    overtones: { o: { mode: "overtones" }, cap: "capOver" }
+  };
+  var labKey = "trace";
+  function setLab(key) {
+    labKey = key;
+    Object.assign(room.o, LAB[key].o);
+    room.setMode(room.o.mode);
+    document.querySelectorAll(".lab [data-mode]").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.mode === key)); });
+    document.getElementById("labCap").innerHTML = I.t(LAB[key].cap);
   }
-  function sizeD() {
-    var r = Math.min(2, window.devicePixelRatio || 1);
-    d.width = d.clientWidth * r; d.height = d.clientHeight * r; dg.setTransform(r, 0, 0, r, 0, 0);
+  document.querySelector(".lab").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-mode]");
+    if (b) setLab(b.dataset.mode);
+  });
+
+  /* ---------- kinetic name ---------- */
+  var l1 = nameEl.querySelector(".l1"), l2 = nameEl.querySelector(".l2");
+  function kinetic() {
+    if (reduce) return;
+    var y = Math.min(window.scrollY, 900);
+    l1.style.transform = "translateX(" + (-y * .22).toFixed(1) + "px)";
+    l2.style.transform = "translateX(" + (y * .22).toFixed(1) + "px)";
+    l2.style.fontWeight = Math.round(400 + Math.min(1, y / 500) * 400);
   }
-  function drawD(t) {
-    var w = d.clientWidth, h = d.clientHeight, gap = h * .075, bottom = h * .8, pen = w * .8;
-    var yOf = function (s) { return bottom - s * gap / 2; };
-    var now = stepAt(t);
-    dg.clearRect(0, 0, w, h);
-    for (var k = 0; k < 5; k++) {
-      var res = Math.exp(-Math.pow(now - 2 * k, 2) / 2.9);
-      dg.strokeStyle = "rgba(12,12,12," + (.3 + res * .45).toFixed(3) + ")";
-      dg.lineWidth = 1;
-      dg.beginPath();
-      for (var x = 0; x <= w; x += 4) {
-        var u = x / w, y = yOf(2 * k) + res * gap * .55 * Math.sin(Math.PI * (2 + k) * u) * Math.cos(t * (.01 + .0025 * k));
-        if (x) dg.lineTo(x, y); else dg.moveTo(x, y);
-      }
-      dg.stroke();
-    }
-    dg.strokeStyle = "rgba(12,12,12,.9)";
-    dg.lineWidth = 1.6;
-    dg.beginPath();
-    for (var px = pen; px > 0; px -= 3) {
-      var py = yOf(stepAt(t - (pen - px) / SPEED));
-      if (px === pen) dg.moveTo(px, py); else dg.lineTo(px, py);
-    }
-    dg.stroke();
-    dg.fillStyle = "#0c0c0c";
-    var first = Math.floor((t - pen / SPEED) / NOTE);
-    for (var n = Math.max(0, first); n * NOTE <= t; n++) {
-      var hx = pen - (t - n * NOTE) * SPEED, hs = MEL[n % MEL.length];
-      dg.globalAlpha = Math.min(1, hx / (w * .25));
-      dg.beginPath(); dg.ellipse(hx, yOf(hs), gap * .5, gap * .36, -.35, 0, Math.PI * 2); dg.fill();
-    }
-    dg.globalAlpha = 1;
-    if (!still) requestAnimationFrame(drawD);
+
+  /* ---------- playback ---------- */
+  var heroPlay = document.getElementById("heroPlay");
+  heroPlay.addEventListener("click", function () { A.toggle(A.playing > -1 ? A.playing : 0); });
+  var tracksEl = document.getElementById("tracks");
+  function renderTracks() {
+    tracksEl.innerHTML = "";
+    S.tracks.forEach(function (t, i) {
+      var li = el("li", "trk");
+      li.dataset.i = i;
+      li.innerHTML = '<button type="button"><span class="label c">' + esc(t.composer) + '</span><span class="ti">' + esc(I.L(t.title)) +
+        '</span><span class="d">' + A.formatTime(A.durationOf(t.demo)) + '</span><span class="w">' + esc(I.L(t.work)) +
+        '</span><span class="bar"></span></button>';
+      li.querySelector("button").addEventListener("click", function () { A.toggle(t.demo); });
+      tracksEl.appendChild(li);
+    });
+    paintTracks();
   }
-  sizeD();
-  window.addEventListener("resize", sizeD);
-  requestAnimationFrame(drawD);
+  function trackFor(demo) { for (var i = 0; i < S.tracks.length; i++) if (S.tracks[i].demo === demo) return S.tracks[i]; return null; }
+  function paintTracks() {
+    var playing = A.playing;
+    tracksEl.querySelectorAll(".trk").forEach(function (li) {
+      var t = S.tracks[+li.dataset.i], on = playing === t.demo, b = li.querySelector("button");
+      li.classList.toggle("on", on);
+      b.setAttribute("aria-label", I.t(on ? "pause" : "play") + ": " + t.composer + " " + I.L(t.title));
+      if (!on) li.querySelector(".bar").style.width = "0";
+    });
+    var cur = trackFor(playing);
+    document.getElementById("nowLabel").textContent = cur ? I.t("nowPlaying") + " · " + cur.composer : I.t("idle");
+    document.getElementById("nowTitle").textContent = cur ? I.L(cur.title) : (S.first + " " + S.last);
+    if (!cur) document.getElementById("nowTime").textContent = "";
+    heroPlay.classList.toggle("on", playing > -1);
+    heroPlay.querySelector("[data-i18n]").textContent = I.t(playing > -1 ? "heroStop" : "heroListen");
+    document.getElementById("miniTitle").textContent = cur ? cur.composer + " · " + I.L(cur.title) : "";
+    document.getElementById("miniStop").setAttribute("aria-label", I.t("pause"));
+  }
+  var miniEl = document.getElementById("mini"), roomVisible = false, heroVisible = true;
+  new IntersectionObserver(function (en) { roomVisible = en[0].isIntersecting; }).observe(document.getElementById("field"));
+  new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; }).observe(heroEl);
+  document.getElementById("miniStop").addEventListener("click", function () { A.stop(); });
+  Staff.hooks.push(function () {
+    var playing = A.playing, show = playing > -1 && !roomVisible && !heroVisible;
+    if (miniEl.classList.contains("show") !== show) {
+      miniEl.classList.toggle("show", show);
+      miniEl.setAttribute("aria-hidden", String(!show));
+      document.getElementById("miniStop").tabIndex = show ? 0 : -1;
+    }
+    if (playing === -1) return;
+    var li = tracksEl.querySelector(".trk.on");
+    if (li) li.querySelector(".bar").style.width = (A.progress() * 100).toFixed(2) + "%";
+    var cur = trackFor(playing);
+    document.getElementById("nowTime").textContent = A.formatTime(A.elapsed()) + " / " + A.formatTime(A.durationOf(cur.demo));
+  });
+  A.onChange(function () { paintTracks(); });
+
+  function renderVideos() {
+    var box = document.getElementById("videos");
+    box.innerHTML = "";
+    S.videos.forEach(function (v) {
+      var f = el("figure", "video",
+        '<button class="v-poster" type="button"><span class="v-play"></span></button>' +
+        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + " · " + esc(v.duration) + "</p></figcaption>");
+      var p = f.querySelector(".v-poster");
+      p.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));
+      p.addEventListener("click", function () {
+        var m = p.querySelector(".v-msg");
+        if (m) m.remove(); else p.appendChild(el("span", "v-msg", esc(I.t("videoMsg"))));
+      });
+      box.appendChild(f);
+    });
+  }
+
+  /* ---------- vita ---------- */
+  function renderVita() {
+    document.getElementById("bio0").textContent = I.L(S.bio[0]);
+    document.getElementById("bio1").textContent = I.L(S.bio[1]);
+    document.getElementById("hl").innerHTML = S.highlights.map(function (h) {
+      return "<dt>" + esc(h.year) + "</dt><dd>" + esc(I.L(h.text)) + "</dd>";
+    }).join("");
+    var kit = document.getElementById("kit");
+    kit.innerHTML = "";
+    S.presskit.forEach(function (k) {
+      var li = el("li", null, '<button type="button">' + esc(I.L(k)) + " ↓</button>");
+      li.querySelector("button").addEventListener("click", function () { document.getElementById("kitMsg").textContent = I.t("kitMsg"); });
+      kit.appendChild(li);
+    });
+    document.getElementById("kitMsg").textContent = "";
+  }
+  var photo = document.getElementById("photo");
+  function revealPhoto() {
+    if (reduce) return;
+    var r = photo.getBoundingClientRect(), vh = window.innerHeight;
+    var p = clamp((vh - r.top) / (vh * .7), 0, 1);
+    photo.style.setProperty("--clip", ((1 - p) * 100 * .85).toFixed(1) + "%");
+  }
+
+  /* ---------- repertoire on the staff ---------- */
+  var MELODY = [2, 4, 6, 5, 3, 7, 8, 6, 4, 5];
+  var scores = [];
+  function renderRep() {
+    var box = document.getElementById("rep");
+    box.innerHTML = "";
+    scores.forEach(function (s) { Staff.all.splice(Staff.all.indexOf(s), 1); });
+    scores = [];
+    [["opera", "repOpera"], ["concert", "repConcert"], ["lied", "repLied"]].forEach(function (g, gi) {
+      var items = S.repertoire[g[0]];
+      var wrap = el("div", "rep-group");
+      var head = el("div", "rep-head", "<h3>" + esc(I.t(g[1])) + '</h3><div class="score"><canvas class="staff-c" aria-hidden="true"></canvas></div>');
+      var ul = el("ul", "rep-list");
+      items.forEach(function (it, i) {
+        var main = it.role ? I.L(it.role) : I.L(it.work);
+        var sub = it.role ? I.L(it.work) + " · " + it.composer : it.composer;
+        var li = el("li", null, '<span class="r-main">' + esc(main) + '</span><span class="r-sub">' + esc(sub) + "</span>");
+        li.dataset.i = i;
+        ul.appendChild(li);
+      });
+      wrap.appendChild(head);
+      wrap.appendChild(ul);
+      box.appendChild(wrap);
+      var notes = items.map(function (_, i) { return MELODY[(i + gi * 3) % MELODY.length]; });
+      var st = new Staff(head.querySelector("canvas"), {
+        mode: "score", notes: notes, gap: 10, mid: .52, clef: true, clefX: 0, alpha: .45, resonate: 1.3, idle: .3,
+        onHover: function (i) { ul.querySelectorAll("li").forEach(function (li) { li.classList.toggle("on", +li.dataset.i === i); }); }
+      });
+      scores.push(st);
+      ul.addEventListener("pointerover", function (e) {
+        var li = e.target.closest("li");
+        if (li && !li.contains(e.relatedTarget)) { li.classList.add("on"); st.setActive(+li.dataset.i); }
+      });
+      ul.addEventListener("pointerout", function (e) {
+        var li = e.target.closest("li");
+        if (li && !li.contains(e.relatedTarget)) { li.classList.remove("on"); st.active = -1; st.dirty = true; }
+      });
+    });
+  }
+
+  /* ---------- press, dates, contact ---------- */
+  function renderPress() {
+    var box = document.getElementById("press");
+    box.innerHTML = "";
+    S.press.forEach(function (p) {
+      box.appendChild(el("figure", "pq", "<blockquote>" + esc(I.L(p.quote)) + "</blockquote><figcaption>" + esc(I.L(p.source)) + "</figcaption>"));
+    });
+  }
+  function slideQuotes() {
+    if (reduce) return;
+    var vh = window.innerHeight, dist = window.innerWidth < 760 ? 0 : 120;
+    document.querySelectorAll(".pq").forEach(function (q, i) {
+      var r = q.getBoundingClientRect();
+      var p = clamp(((r.top + r.height / 2) - vh / 2) / vh, -1, 1);
+      q.style.transform = "translateX(" + (p * (i % 2 ? -1 : 1) * dist).toFixed(1) + "px)";
+    });
+  }
+  function renderDates() {
+    var ol = document.getElementById("dates");
+    ol.innerHTML = "";
+    S.dates.forEach(function (d) {
+      var det = I.L(d.composer) + (I.L(d.role) ? " · " + I.L(d.role) : "");
+      ol.appendChild(el("li", "dt",
+        '<time datetime="' + d.date + '">' + esc(I.formatDate(d.date, { day: "2-digit", month: "2-digit" })) +
+        "<small>" + esc(I.formatDate(d.date, { weekday: "long" })) + " · " + d.date.slice(0, 4) + "</small></time>" +
+        '<div><p class="wk">' + esc(I.L(d.work)) + '</p><p class="de">' + esc(det) + "</p></div>" +
+        '<p class="ve">' + esc(d.venue) + "</p>"));
+    });
+    document.getElementById("past").textContent = S.pastVenues.join(" · ");
+  }
+  function renderContact() {
+    document.getElementById("mail").textContent = S.email;
+    document.getElementById("mailto").href = "mailto:" + S.email;
+    document.getElementById("phone").textContent = S.phone;
+    document.getElementById("copyright").textContent = "© " + new Date().getFullYear() + " " + S.first + " " + S.last;
+  }
+  var copyBtn = document.getElementById("copy");
+  copyBtn.addEventListener("click", function () {
+    function done() { copyBtn.textContent = I.t("copied"); setTimeout(function () { copyBtn.textContent = I.t("copy"); }, 1800); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById("mail")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    try { navigator.clipboard.writeText(S.email).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  /* ---------- scroll ---------- */
+  var topbar = document.getElementById("topbar");
+  function onScroll() {
+    topbar.classList.toggle("solid", window.scrollY > 40);
+    kinetic();
+    revealPhoto();
+    slideQuotes();
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  function renderAll() {
+    document.querySelectorAll("[data-site]").forEach(function (e) { e.textContent = I.L(S[e.dataset.site]); });
+    l1.textContent = S.first;
+    l2.textContent = S.last;
+    nameEl.setAttribute("aria-label", S.first + " " + S.last);
+    room.o.formantLabel = I.t("formant");
+    renderTracks();
+    renderVideos();
+    renderVita();
+    renderRep();
+    renderPress();
+    renderDates();
+    renderContact();
+    setLab(labKey);
+    onScroll();
+    Staff.all.forEach(function (s) { s.dirty = true; });
+  }
+  document.addEventListener("langchange", renderAll);
+  I.init(DICT);
+  Staff.start();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { hero.resize(); });
 })();
 </script>
 </body>
