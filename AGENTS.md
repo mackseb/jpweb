@@ -91,7 +91,8 @@ Script load order on every page: `content.js` → `i18n.js` → `demo-audio.js` 
 ## Content rules
 
 - German is the primary language; **always supply the English version alongside** any new text.
-- Real so far: her name, the Vita (`bio`, `highlights` in `content.js`) and the portrait.
+- Real so far: her name, the Vita (`bio`, `highlights` in `content.js`), the portrait and the
+  YouTube videos (`videos`, each with a `youtube` ID).
   Everything else (dates, venues, press quotes, contact, agency, repertoire, recordings) is a
   **placeholder**. Never invent facts about her or present placeholders as real; keep fake data
   obviously fake (Musterstadt, Beispielstadt, example.com).
@@ -110,7 +111,9 @@ origin (the analyser can't read cross-origin media).
 ## Privacy and legal (Germany)
 
 - No third-party requests before the visitor asks for them: videos use a click-to-load facade
-  (no YouTube/Vimeo request before a click). Don't add trackers, analytics or embeds.
+  (no YouTube request before a click; then an iframe from youtube-nocookie.com). The concept
+  pages under `entwuerfe/` only show a placeholder message on click. Don't add trackers,
+  analytics or other embeds.
 - Google Fonts are a known exception to be removed (self-host before launch).
 - Impressum and Datenschutzerklärung pages are mandatory before going live.
 

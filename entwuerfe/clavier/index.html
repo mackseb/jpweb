@@ -819,7 +819,7 @@ footer.band { padding-block: 48px calc(48px + 80px); }
     S.videos.forEach(function (v) {
       var f = el("figure", "video");
       f.innerHTML =
-        '<button class="v-poster" type="button"><span class="v-play"></span><span class="v-dur">' + esc(v.duration) + '</span></button>' +
+        '<button class="v-poster" type="button"><span class="v-play"></span><span class="v-dur">' + esc(v.duration || "") + '</span></button>' +
         '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + "</p></figcaption>";
       var poster = f.querySelector(".v-poster");
       poster.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));

@@ -144,7 +144,8 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
 .v-play { position: relative; width: 70px; height: 70px; border-radius: 50%; background: var(--night-fg); display: grid; place-items: center; transition: transform .3s; }
 .v-play::before { content: ""; width: 14px; height: 17px; background: var(--ink); clip-path: polygon(0 0, 100% 50%, 0 100%); margin-left: 4px; }
 .v-poster:hover .v-play { transform: scale(1.08); }
-.v-msg { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 20px; background: rgba(12, 12, 12, .93); }
+.v-frame { display: block; aspect-ratio: 16 / 9; width: 100%; border: 1px solid var(--rule); background: #000; }
+.v-note { margin: 0 0 30px; color: var(--night-dim); font-size: .85rem; max-width: var(--measure); }
 .v-title { margin: 0; font: italic 400 1.5rem/1.2 var(--f-display); }
 .v-meta { margin: 0; color: var(--muted); font-size: .95rem; }
 
@@ -307,6 +308,7 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
         <h3 class="label" data-i18n="watchTitle" style="font-family:var(--f-text)">Sehen</h3>
       </header>
       <div class="videos" id="videos"></div>
+      <p class="v-note" data-i18n="videoNote"></p>
       <p class="proto" data-i18n-html="protoMedia"></p>
     </div>
   </section>
@@ -422,8 +424,9 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
       capSpec: "<b>Klangschrift.</b> Alle Frequenzen der Stimme als Gravur. Die Notenlinien liegen auf ihrer echten Tonhöhe, das Vibrato erscheint als Wellen in den Obertönen.",
       capOver: "<b>Obertöne.</b> Grundton und Obertöne des gesungenen Tons. Das helle Band markiert den Sängerformanten, der eine Stimme über das Orchester trägt.",
       formant: "Sängerformant",
-      watchTitle: "Sehen", videoMsg: "Hier startet das Video, geladen erst nach diesem Klick.",
-      protoMedia: "<b>Prototyp</b>Die Umschaltung zwischen vier Darstellungen dient nur dem Vergleich; im fertigen Auftritt bleibt eine. Es erklingt eine synthetische Demo-Melodie; mit ihren Aufnahmen folgen die Linien ihrer echten Stimme. Videos laden erst nach einem Klick.",
+      watchTitle: "Sehen",
+      videoNote: "Die Videos werden erst nach einem Klick von YouTube (youtube-nocookie.com) geladen. Dabei gelten die Datenschutzbestimmungen von YouTube.",
+      protoMedia: "<b>Prototyp</b>Die Umschaltung zwischen vier Darstellungen dient nur dem Vergleich; im fertigen Auftritt bleibt eine. Es erklingt eine synthetische Demo-Melodie; mit ihren Aufnahmen folgen die Linien ihrer echten Stimme.",
       vitaTitle: "Vita", kitTitle: "Pressemappe", kitMsg: "Im fertigen Auftritt startet hier der Download.",
       repTitle: "Repertoire", repLede: "Partien und Werke, die sie gesungen hat und kurzfristig anbieten kann.",
       repOpera: "Oper", repConcert: "Konzert & Oratorium", repLied: "Lied",
@@ -448,8 +451,9 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
       capSpec: "<b>Engraved spectrum.</b> Every frequency of the voice as an engraving. The staff lines sit at their true pitch; vibrato shows as waves in the overtones.",
       capOver: "<b>Overtones.</b> The fundamental and overtones of the sung note. The light band marks the singer's formant, which carries a voice over an orchestra.",
       formant: "Singer's formant",
-      watchTitle: "Watch", videoMsg: "The video starts here, loaded only after this click.",
-      protoMedia: "<b>Prototype</b>Switching between four visualisations is only for comparison; the finished site keeps one. A synthesized demo melody plays; with her recordings the lines follow her real voice. Videos load only after a click.",
+      watchTitle: "Watch",
+      videoNote: "The videos load from YouTube (youtube-nocookie.com) only after a click. YouTube's privacy policy then applies.",
+      protoMedia: "<b>Prototype</b>Switching between four visualisations is only for comparison; the finished site keeps one. A synthesized demo melody plays; with her recordings the lines follow her real voice.",
       vitaTitle: "About", kitTitle: "Press kit", kitMsg: "On the finished site, the download starts here.",
       repTitle: "Repertoire", repLede: "Roles and works she has performed and can offer at short notice.",
       repOpera: "Opera", repConcert: "Concert & oratorio", repLied: "Song",
@@ -584,19 +588,37 @@ h2 { font-size: clamp(3.2rem, 9vw, 8rem); line-height: .95; font-style: italic; 
   });
   A.onChange(function () { paintTracks(); });
 
+  // Click-to-load facade: no request to YouTube until the visitor clicks play.
+  var videosLoaded = {};
+  function videoFrame(v, autoplay) {
+    var f = document.createElement("iframe");
+    f.className = "v-frame";
+    f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(v.youtube) + "?rel=0" + (autoplay ? "&autoplay=1" : "");
+    f.title = I.L(v.title);
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+    f.allowFullscreen = true;
+    f.referrerPolicy = "strict-origin-when-cross-origin";
+    return f;
+  }
   function renderVideos() {
     var box = document.getElementById("videos");
     box.innerHTML = "";
     S.videos.forEach(function (v) {
       var f = el("figure", "video",
         '<button class="v-poster" type="button"><span class="v-play"></span></button>' +
-        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(v.meta) + " · " + esc(v.duration) + "</p></figcaption>");
+        '<figcaption><p class="v-title">' + esc(I.L(v.title)) + '</p><p class="v-meta">' + esc(I.L(v.meta)) + "</p></figcaption>");
       var p = f.querySelector(".v-poster");
-      p.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));
-      p.addEventListener("click", function () {
-        var m = p.querySelector(".v-msg");
-        if (m) m.remove(); else p.appendChild(el("span", "v-msg", esc(I.t("videoMsg"))));
-      });
+      if (videosLoaded[v.youtube]) p.replaceWith(videoFrame(v, false));
+      else {
+        p.setAttribute("aria-label", I.t("play") + ": " + I.L(v.title));
+        p.addEventListener("click", function () {
+          videosLoaded[v.youtube] = true;
+          A.stop();
+          var fr = videoFrame(v, true);
+          p.replaceWith(fr);
+          fr.focus();
+        });
+      }
       box.appendChild(f);
     });
   }
