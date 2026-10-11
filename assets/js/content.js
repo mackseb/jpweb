@@ -130,21 +130,27 @@ window.SITE = {
     }
   ],
 
+  // From her own short Vita (wording to be polished)
   bio: [
     {
-      de: "Julia Planitz ist Sopranistin und auf der Opernbühne, im Oratorium und im Liederabend zu Hause. Ausbildung, Ensembles und Schwerpunkte stehen hier, sobald ihre Vita vorliegt.",
-      en: "Julia Planitz is a soprano at home on the opera stage, in oratorio and in song recitals. Her training, ensembles and focus will appear here once her CV is in."
+      de: "Die Sopranistin Julia Planitz studierte Gesang an der Wiesbadener Musikakademie und schloss ihr Studium bei Prof. Richard Staab mit Bestnote ab.",
+      en: "Soprano Julia Planitz studied voice at the Wiesbaden Music Academy, graduating with top marks under Prof. Richard Staab."
     },
     {
-      de: "Hier steht später ihre eigene Biografie: kurz genug für ein Programmheft und lang genug, um neugierig zu machen.",
-      en: "Her own biography goes here later: short enough for a programme booklet and long enough to make people curious."
+      de: "Als Solistin ist sie regelmäßig in Oratorien und Kantaten sowie in Opern- und Operettenproduktionen zu hören. Daneben unterrichtet sie als Musikpädagogin und als Dozentin für Stimmbildung.",
+      en: "As a soloist she appears regularly in oratorios and cantatas as well as in opera and operetta productions. She also teaches as a music educator and as a lecturer in voice training."
     }
   ],
   highlights: [
-    { year: "2025", text: { de: "Preisträgerin, Internationaler Gesangswettbewerb (Platzhalter)", en: "Prize winner, international singing competition (placeholder)" } },
-    { year: "2022–24", text: { de: "Ensemblemitglied, Stadttheater Musterstadt", en: "Ensemble member, Musterstadt municipal theatre" } },
-    { year: "2021", text: { de: "Master Gesang, Hochschule für Musik Beispielstadt", en: "MMus Voice, Beispielstadt University of Music" } },
-    { year: "2020", text: { de: "Meisterkurs Lied (Platzhalter)", en: "Song masterclass (placeholder)" } }
+    { label: { de: "Gesang", en: "Voice" }, text: { de: "Studium an der Wiesbadener Musikakademie bei Prof. Richard Staab, Abschluss mit Bestnote", en: "Studied at the Wiesbaden Music Academy with Prof. Richard Staab, graduated with top marks" } },
+    { label: { de: "Studium", en: "Studies" }, text: { de: "Schulmusik, Hochschule für Musik und Darstellende Kunst Frankfurt", en: "School music, Frankfurt University of Music and Performing Arts" } },
+    { label: { de: "Studium", en: "Studies" }, text: { de: "Elementare Musikpädagogik, Wiesbadener Musikakademie", en: "Elementary music education, Wiesbaden Music Academy" } },
+    { label: { de: "Meisterkurse", en: "Masterclasses" }, text: { de: "Carol Bagott-Forte (Kanada), Prof. Noelle Turner (Essen), Prof. Thomas Heyer (Frankfurt)", en: "Carol Bagott-Forte (Canada), Prof. Noelle Turner (Essen), Prof. Thomas Heyer (Frankfurt)" } },
+    { label: { de: "Oratorium", en: "Oratorio" }, text: { de: "Oratorien und Kantaten, u. a. von Bach, Vivaldi, Händel und Mendelssohn", en: "Oratorios and cantatas, including Bach, Vivaldi, Handel and Mendelssohn" } },
+    { label: { de: "Bühne", en: "Stage" }, text: { de: "Opern- und Operettenproduktionen, u. a. von J. Strauß, Glass und Bernstein", en: "Opera and operetta productions, including J. Strauss, Glass and Bernstein" } },
+    { label: { de: "Lehre", en: "Teaching" }, text: { de: "Dozentin für Stimmbildung, Ausbildungszentrum für Logopädie der Universitätsmedizin Mainz", en: "Lecturer in voice training, speech therapy training centre, Mainz University Medical Center" } },
+    { label: { de: "Chor", en: "Choir" }, text: { de: "Chorleitungsteam, Mädchenchor Wiesbaden e. V.", en: "Choir directing team, Mädchenchor Wiesbaden e. V." } },
+    { label: { de: "Pädagogik", en: "Education" }, text: { de: "Musikpädagogin an Grundschulen", en: "Music educator at primary schools" } }
   ],
   presskit: [
     { de: "Vita (PDF)", en: "CV (PDF)" },
